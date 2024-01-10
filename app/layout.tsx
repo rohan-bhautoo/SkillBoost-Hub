@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { fonts } from "./fonts";
 import "./globals.css";
 import { Providers } from "./providers";
+import { Grid, GridItem, Show } from "@chakra-ui/react";
 
 export const metadata: Metadata = {
   title: "SkillBoost Hub",
@@ -16,7 +17,24 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={fonts.inter.variable}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Grid
+            templateAreas={{
+              base: `"nav" "main"`,
+              lg: `"nav nav" "main"`,
+            }}
+            templateColumns={{
+              base: "1fr",
+            }}
+          >
+            <GridItem area="nav" bg="red">
+              Nav
+            </GridItem>
+            <GridItem area="main" bg="blue">
+              <main>{children}</main>
+            </GridItem>
+          </Grid>
+        </Providers>
       </body>
     </html>
   );
