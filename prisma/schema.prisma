@@ -11,19 +11,21 @@ datasource db {
 }
 
 model Course {
-  id          Int      @id @default(autoincrement())
-  title       String   @unique @db.VarChar(255)
-  description String   @db.Text
-  duration    String   @db.VarChar(255)
-  price       Float    @db.Double
-  level       Level
-  thumbnail   String   @db.VarChar(255)
-  startDate   DateTime
-  endDate     DateTime
-  category    Category @relation(fields: [categoryId], references: [id])
-  categoryId  Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           Int        @id @default(autoincrement())
+  title        String     @unique @db.VarChar(255)
+  description  String     @db.Text
+  duration     String     @db.VarChar(255)
+  price        Float      @db.Double
+  level        Level
+  thumbnail    String     @db.VarChar(255)
+  startDate    DateTime
+  endDate      DateTime
+  category     Category   @relation(fields: [categoryId], references: [id])
+  categoryId   Int
+  instructor   Instructor @relation(fields: [instructorId], references: [id])
+  instructorId Int
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
 
 enum Level {
@@ -41,4 +43,14 @@ model Category {
   courses       Course[]
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
+}
+
+model Instructor {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String   @unique
+  courses   Course[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
