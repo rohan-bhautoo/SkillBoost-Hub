@@ -7,6 +7,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Show,
 } from "@chakra-ui/react";
 import logo from "../assets/logo.png";
 import CustomLink from "./CustomLink";
@@ -17,9 +18,11 @@ const NavBar = () => {
   return (
     <HStack padding="8px" gap={4}>
       <CustomLink href="/" label="">
-        <Image src={logo.src} boxSize="80px" />
+        <Image src={logo.src} boxSize={{ base: "60px", md: "70px" }} />
       </CustomLink>
-      <CoursesDropdown />
+      <Show above="lg">
+        <CoursesDropdown />
+      </Show>
       <SearchInput />
       <Menu>
         <MenuButton>
