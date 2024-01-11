@@ -20,7 +20,8 @@ model Course {
   thumbnail   String   @db.VarChar(255)
   startDate   DateTime
   endDate     DateTime
-  category    String   @db.VarChar(255)
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  Int
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -29,4 +30,15 @@ enum Level {
   Beginner
   Intermediate
   Advanced
+}
+
+model Category {
+  id            Int        @id @default(autoincrement())
+  name          String     @unique @db.VarChar(255)
+  parent        Category?  @relation("Subcategories", fields: [parentId], references: [id])
+  parentId      Int?
+  subcategories Category[] @relation("Subcategories")
+  courses       Course[]
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
 }
