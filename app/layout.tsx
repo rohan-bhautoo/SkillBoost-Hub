@@ -1,8 +1,9 @@
+import { Grid, GridItem } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import { fonts } from "./fonts";
 import "./globals.css";
 import { Providers } from "./providers";
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import NavBar from "./components/NavBar";
 
 export const metadata: Metadata = {
   title: "SkillBoost Hub",
@@ -27,8 +28,8 @@ export default function RootLayout({
               base: "1fr",
             }}
           >
-            <GridItem area="nav" bg="red">
-              Nav
+            <GridItem area="nav">
+              <NavBar />
             </GridItem>
             <GridItem area="main" bg="blue">
               <main>{children}</main>
