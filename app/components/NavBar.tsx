@@ -1,20 +1,9 @@
 "use client";
-import {
-  Avatar,
-  Button,
-  ButtonGroup,
-  HStack,
-  Image,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Show,
-} from "@chakra-ui/react";
+import { Button, ButtonGroup, HStack, Image, Show } from "@chakra-ui/react";
 import logo from "../assets/logo.png";
+import CoursesDropdown from "./CoursesDropdown";
 import CustomLink from "./CustomLink";
 import SearchInput from "./SearchInput";
-import CoursesDropdown from "./CoursesDropdown";
 
 const NavBar = () => {
   return (
