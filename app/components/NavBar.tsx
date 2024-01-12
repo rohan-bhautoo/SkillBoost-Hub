@@ -1,6 +1,8 @@
 "use client";
 import {
   Avatar,
+  Button,
+  ButtonGroup,
   HStack,
   Image,
   Menu,
@@ -18,24 +20,21 @@ const NavBar = () => {
   return (
     <HStack padding="8px" gap={4}>
       <CustomLink href="/" label="">
-        <Image src={logo.src} boxSize={{ base: "60px", md: "70px" }} />
+        <Image src={logo.src} boxSize="120px" h="auto" objectFit="cover" />
       </CustomLink>
       <Show above="lg">
         <CoursesDropdown />
       </Show>
       <SearchInput />
-      <Menu>
-        <MenuButton>
-          <Avatar
-            name="Rohan Bhautoo"
-            src="https://avatars.githubusercontent.com/u/47154593?v=4"
-            size="sm"
-          />
-        </MenuButton>
-        <MenuList>
-          <MenuItem>Log out</MenuItem>
-        </MenuList>
-      </Menu>
+      <ButtonGroup spacing="4">
+        <Button bg="none" borderRadius={15}>
+          Teach on SkillBoost
+        </Button>
+        <Button colorScheme="blue" borderRadius={15}>
+          Log in
+        </Button>
+        <Button borderRadius={15}>Sign up</Button>
+      </ButtonGroup>
     </HStack>
   );
 };

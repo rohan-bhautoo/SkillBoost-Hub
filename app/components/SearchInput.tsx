@@ -16,7 +16,7 @@ const SearchInput = () => {
         <InputLeftElement children={<BsSearch />} />
         <Input
           ref={ref}
-          borderRadius={20}
+          borderRadius={15}
           placeholder="Search courses..."
           variant="filled"
         />
