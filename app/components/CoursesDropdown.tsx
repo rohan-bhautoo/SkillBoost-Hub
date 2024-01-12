@@ -23,7 +23,6 @@ const CoursesDropdown = () => {
         as={Button}
         rightIcon={<ChevronDownIcon mt={1} />}
         bg="none"
-        gap={4}
         borderRadius={15}
       >
         Courses

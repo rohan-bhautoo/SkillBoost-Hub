@@ -23,11 +23,13 @@ const NavBar = () => {
         <Image src={logo.src} boxSize="120px" h="auto" objectFit="cover" />
       </CustomLink>
       <Show above="lg">
-        <CoursesDropdown />
+        <ButtonGroup>
+          <CoursesDropdown />
+        </ButtonGroup>
       </Show>
       <SearchInput />
       <ButtonGroup spacing="4">
-        <Button bg="none" borderRadius={15}>
+        <Button bg="none" borderRadius={15} variant="outline">
           Teach on SkillBoost
         </Button>
         <Button colorScheme="blue" borderRadius={15}>
