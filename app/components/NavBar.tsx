@@ -13,11 +13,10 @@ import {
 } from "@chakra-ui/react";
 import { Dispatch, useState } from "react";
 import logo from "../assets/logo.png";
+import AuthModal from "./AuthModal";
 import CoursesDropdown from "./CoursesDropdown";
 import ImageLink from "./ImageLink";
-import LoginModal from "./LoginModal";
 import SearchInput from "./SearchInput";
-import SignupModal from "./SignupModal";
 
 interface Props {
   display: string;
@@ -100,16 +99,8 @@ const HamburgerMenu = ({ display, changeDisplay }: Props) => {
 };
 
 const NavActions = ({ display }: { display: string }) => {
-  const {
-    isOpen: isLoginOpen,
-    onOpen: onLoginOpen,
-    onClose: onLoginClose,
-  } = useDisclosure();
-  const {
-    isOpen: isSignupOpen,
-    onOpen: onSignupOpen,
-    onClose: onSignuplose,
-  } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [authAction, setAuthAction] = useState("");
 
   return (
     <>
@@ -118,16 +109,29 @@ const NavActions = ({ display }: { display: string }) => {
         orientation={display === "none" ? "horizontal" : "vertical"}
       >
         <Button borderRadius={15}>Teach on SkillBoost</Button>
-        <Button colorScheme="blue" borderRadius={15} onClick={onLoginOpen}>
+        <Button
+          colorScheme="blue"
+          borderRadius={15}
+          onClick={() => {
+            onOpen();
+            setAuthAction("LOGIN");
+          }}
+        >
           Log in
         </Button>
-        <Button colorScheme="blue" borderRadius={15} onClick={onSignupOpen}>
+        <Button
+          colorScheme="blue"
+          borderRadius={15}
+          onClick={() => {
+            onOpen();
+            setAuthAction("SIGNUP");
+          }}
+        >
           Sign up
         </Button>
       </ButtonGroup>
 
-      <LoginModal isOpen={isLoginOpen} onClose={onLoginClose} />
-      <SignupModal isOpen={isSignupOpen} onClose={onSignuplose} />
+      <AuthModal authAction={authAction} isOpen={isOpen} onClose={onClose} />
     </>
   );
 };
