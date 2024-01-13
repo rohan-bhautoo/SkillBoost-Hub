@@ -15,6 +15,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
 import logo from "../assets/logo.png";
 import CustomLink from "./CustomLink";
 
@@ -47,6 +48,10 @@ const LoginModal = ({ isOpen, onClose }: Props) => {
             <Button w="100%" leftIcon={<FcGoogle />}>
               Continue with Google
             </Button>
+            <Button w="100%" colorScheme="facebook" leftIcon={<FaFacebook />}>
+              Continue with Facebook
+            </Button>
+            <Divider />
             <Box pb={4}>
               <Text>
                 Don't have an account? <CustomLink href="/" label="Sign up" />
