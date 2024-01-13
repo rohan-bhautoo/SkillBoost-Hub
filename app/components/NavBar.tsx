@@ -30,24 +30,24 @@ const NavBar = () => {
   return (
     <>
       <HStack padding="8px" gap={4}>
-        <Show above="md">
+        <Hide below="md">
           <Logo />
           <ButtonGroup>
             <CoursesDropdown />
           </ButtonGroup>
-        </Show>
+        </Hide>
         <SearchInput />
-        <Show above="md">
+        <Hide below="md">
           <NavActions display="none" />
-        </Show>
-        <Hide above="md">
+        </Hide>
+        <Show below="md">
           <IconButton
             aria-label="Open Menu"
             icon={<HamburgerIcon />}
             borderRadius={15}
             onClick={() => changeDisplay("flex")}
           />
-        </Hide>
+        </Show>
       </HStack>
       <Hide above="md">
         <HamburgerMenu display={display} changeDisplay={changeDisplay} />
