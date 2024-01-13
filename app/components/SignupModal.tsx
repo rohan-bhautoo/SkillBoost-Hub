@@ -4,15 +4,12 @@ import {
   Divider,
   Flex,
   FormControl,
-  FormLabel,
   Image,
   Input,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
-  ModalHeader,
   ModalOverlay,
   Text,
   VStack,
@@ -29,12 +26,7 @@ const SignupModal = ({ isOpen, onClose }: Props) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent
-        alignContent="center"
-        justifyContent="center"
-        justifyItems="center"
-        textAlign="center"
-      >
+      <ModalContent>
         <Flex justify="center">
           <Image src={logo.src} maxW={"100px"} h="auto" objectFit="cover" />
         </Flex>
@@ -58,9 +50,6 @@ const SignupModal = ({ isOpen, onClose }: Props) => {
             </FormControl>
             <Button w="100%" colorScheme="blue">
               Sign up
-            </Button>
-            <Button w="100%" onClick={onClose}>
-              Close
             </Button>
             <Divider />
             <Box pb={4}>

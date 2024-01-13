@@ -1,13 +1,22 @@
 import {
+  Box,
   Button,
+  Divider,
+  Flex,
+  FormControl,
+  Image,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
-  ModalHeader,
   ModalOverlay,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
+import { FcGoogle } from "react-icons/fc";
+import logo from "../assets/logo.png";
+import CustomLink from "./CustomLink";
 
 interface Props {
   isOpen: boolean;
@@ -19,15 +28,32 @@ const LoginModal = ({ isOpen, onClose }: Props) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Log in</ModalHeader>
+        <Flex justify="center">
+          <Image src={logo.src} maxW={"100px"} h="auto" objectFit="cover" />
+        </Flex>
         <ModalCloseButton />
-        <ModalBody></ModalBody>
-        <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
-            Close
-          </Button>
-          <Button variant="ghost">Secondary Action</Button>
-        </ModalFooter>
+        <ModalBody>
+          <VStack gap={5}>
+            <FormControl>
+              <Input placeholder="Email Address" type="email" />
+            </FormControl>
+            <FormControl>
+              <Input placeholder="Password" type="password" />
+            </FormControl>
+            <Button w="100%" colorScheme="blue">
+              Log in
+            </Button>
+            <Divider />
+            <Button w="100%" leftIcon={<FcGoogle />}>
+              Continue with Google
+            </Button>
+            <Box pb={4}>
+              <Text>
+                Don't have an account? <CustomLink href="/" label="Sign up" />
+              </Text>
+            </Box>
+          </VStack>
+        </ModalBody>
       </ModalContent>
     </Modal>
   );
