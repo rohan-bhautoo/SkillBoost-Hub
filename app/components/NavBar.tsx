@@ -9,12 +9,15 @@ import {
   IconButton,
   Image,
   Show,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Dispatch, useState } from "react";
 import logo from "../assets/logo.png";
 import CoursesDropdown from "./CoursesDropdown";
-import CustomLink from "./CustomLink";
+import ImageLink from "./ImageLink";
+import LoginModal from "./LoginModal";
 import SearchInput from "./SearchInput";
+import SignupModal from "./SignupModal";
 
 interface Props {
   display: string;
@@ -35,9 +38,7 @@ const NavBar = () => {
         </Show>
         <SearchInput />
         <Show above="md">
-          <ButtonGroup spacing="4">
-            <NavActions display="none" />
-          </ButtonGroup>
+          <NavActions display="none" />
         </Show>
         <Hide above="md">
           <IconButton
@@ -57,9 +58,9 @@ const NavBar = () => {
 
 const Logo = () => {
   return (
-    <CustomLink href="/" label="">
+    <ImageLink href="/">
       <Image src={logo.src} maxW={"100px"} h="auto" objectFit="cover" />
-    </CustomLink>
+    </ImageLink>
   );
 };
 
@@ -99,19 +100,35 @@ const HamburgerMenu = ({ display, changeDisplay }: Props) => {
 };
 
 const NavActions = ({ display }: { display: string }) => {
+  const {
+    isOpen: isLoginOpen,
+    onOpen: onLoginOpen,
+    onClose: onLoginClose,
+  } = useDisclosure();
+  const {
+    isOpen: isSignupOpen,
+    onOpen: onSignupOpen,
+    onClose: onSignuplose,
+  } = useDisclosure();
+
   return (
-    <ButtonGroup
-      spacing="4"
-      orientation={display === "none" ? "horizontal" : "vertical"}
-    >
-      <Button bg="none" borderRadius={15} variant="outline">
-        Teach on SkillBoost
-      </Button>
-      <Button colorScheme="blue" borderRadius={15}>
-        Log in
-      </Button>
-      <Button borderRadius={15}>Sign up</Button>
-    </ButtonGroup>
+    <>
+      <ButtonGroup
+        spacing="4"
+        orientation={display === "none" ? "horizontal" : "vertical"}
+      >
+        <Button borderRadius={15}>Teach on SkillBoost</Button>
+        <Button colorScheme="blue" borderRadius={15} onClick={onLoginOpen}>
+          Log in
+        </Button>
+        <Button colorScheme="blue" borderRadius={15} onClick={onSignupOpen}>
+          Sign up
+        </Button>
+      </ButtonGroup>
+
+      <LoginModal isOpen={isLoginOpen} onClose={onLoginClose} />
+      <SignupModal isOpen={isSignupOpen} onClose={onSignuplose} />
+    </>
   );
 };
 

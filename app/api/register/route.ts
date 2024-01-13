@@ -4,8 +4,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 const schema = z.object({
+  name: z.string().min(1),
   email: z.string().email(),
-  password: z.string().min(5),
+  password: z.string().min(8),
 });
 
 export async function POST(request: NextRequest) {
@@ -29,6 +30,7 @@ export async function POST(request: NextRequest) {
 
   const newUser = await prisma.user.create({
     data: {
+      name: body.name,
       email: body.email,
       password: hashedPassword,
     },
