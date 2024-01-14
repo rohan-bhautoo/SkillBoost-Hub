@@ -36,7 +36,7 @@ const SignupForm = ({ setAction }: Props) => {
   const [error, setError] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
 
-  const password = watch("password");
+  const password = watch("password", "");
   const [passwordMatch, setPasswordMatch] = useState("");
 
   const onSubmit = handleSubmit(async (data) => {
