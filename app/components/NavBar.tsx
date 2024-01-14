@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { Dispatch, useState } from "react";
 import logo from "../assets/logo.png";
-import AuthModal from "./AuthModal";
+import AuthModal from "../auth/AuthModal";
 import CoursesDropdown from "./CoursesDropdown";
 import ImageLink from "./ImageLink";
 import SearchInput from "./SearchInput";
