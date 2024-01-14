@@ -26,6 +26,7 @@ interface Props {
 const SignupForm = ({ setAction }: Props) => {
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm<SignupFormData>({
@@ -34,6 +35,9 @@ const SignupForm = ({ setAction }: Props) => {
 
   const [error, setError] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
+
+  const password = watch("password");
+  const [passwordMatch, setPasswordMatch] = useState("");
 
   const onSubmit = handleSubmit(async (data) => {
     setSubmitting(true);
@@ -82,8 +86,13 @@ const SignupForm = ({ setAction }: Props) => {
           />
           <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
         </FormControl>
-        <FormControl>
-          <Input placeholder="Confirm Password" type="password" />
+        <FormControl isInvalid={password !== passwordMatch}>
+          <Input
+            placeholder="Confirm Password"
+            type="password"
+            onChange={(e) => setPasswordMatch(e.target.value)}
+          />
+          <FormErrorMessage>Passwords do not match!</FormErrorMessage>
         </FormControl>
         <Button
           type="submit"
