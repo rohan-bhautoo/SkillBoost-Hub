@@ -1,6 +1,7 @@
 "use client";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
+  Avatar,
   Button,
   ButtonGroup,
   Flex,
@@ -8,16 +9,22 @@ import {
   Hide,
   IconButton,
   Image,
+  Link,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Show,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import { Dispatch, useState } from "react";
 import logo from "../assets/logo.png";
 import AuthModal from "../auth/AuthModal";
+import useAuthActionStore from "../stores/useAuthActionStore";
 import CoursesDropdown from "./CoursesDropdown";
 import ImageLink from "./ImageLink";
 import SearchInput from "./SearchInput";
-import useAuthActionStore from "../stores/useAuthActionStore";
 
 interface Props {
   display: string;
@@ -38,7 +45,7 @@ const NavBar = () => {
         </Hide>
         <SearchInput />
         <Hide below="md">
-          <NavActions display="none" />
+          <AuthStatus />
         </Hide>
         <Show below="md">
           <IconButton
@@ -134,6 +141,32 @@ const NavActions = ({ display }: { display: string }) => {
 
       <AuthModal isOpen={isOpen} onClose={onClose} />
     </>
+  );
+};
+
+const AuthStatus = () => {
+  const { status, data: session } = useSession();
+
+  //if (status === "loading") return <Skeleton width="10rem" height="auto" />;
+
+  if (status === "unauthenticated") return <NavActions display="none" />;
+
+  return (
+    <Menu>
+      <MenuButton>
+        <Avatar
+          name={session!.user?.name!}
+          src={session!.user!.image!}
+          size="sm"
+          className="cursor-pointer"
+        />
+      </MenuButton>
+      <MenuList>
+        <MenuItem>
+          <Link href="/api/auth/signout">Log out</Link>
+        </MenuItem>
+      </MenuList>
+    </Menu>
   );
 };
 

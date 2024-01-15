@@ -15,7 +15,6 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -35,7 +34,6 @@ const SignupForm = () => {
     resolver: zodResolver(signupSchema),
   });
 
-  const router = useRouter();
   const [error, setError] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
 
@@ -58,8 +56,6 @@ const SignupForm = () => {
         });
 
       signIn("credentials", { email: data.email, password: data.password });
-      //router.refresh();
-      console.log(data);
     } catch (error) {
       setSubmitting(false);
       setError("An unexpected error occurred.");

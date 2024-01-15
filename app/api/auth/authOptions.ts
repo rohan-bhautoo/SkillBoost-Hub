@@ -4,8 +4,8 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const authOptions: NextAuthOptions = {
-  pages: {
-    signIn: "/login",
+  session: {
+    strategy: "jwt",
   },
   providers: [
     CredentialsProvider({
@@ -38,8 +38,26 @@ const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  session: {
-    strategy: "jwt",
+  callbacks: {
+    session: ({ session, token }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+        },
+      };
+    },
+    jwt: ({ token, user }) => {
+      if (user) {
+        const u = user as unknown as any;
+        return {
+          ...token,
+          id: u.id,
+        };
+      }
+      return token;
+    },
   },
 };
 

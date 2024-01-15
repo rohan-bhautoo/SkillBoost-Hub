@@ -19,7 +19,7 @@ import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { z } from "zod";
 import useAuthActionStore from "../stores/useAuthActionStore";
-import NextLink from "next/link";
+import { signIn } from "next-auth/react";
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
@@ -38,8 +38,13 @@ const LoginForm = () => {
   const [isSubmitting, setSubmitting] = useState(false);
 
   const onSubmit = handleSubmit(async (data) => {
-    setSubmitting(true);
-    console.log(data);
+    try {
+      setSubmitting(true);
+      signIn("credentials", { email: data.email, password: data.password });
+    } catch (error) {
+      setSubmitting(false);
+      setError("An unexpected error occurred.");
+    }
   });
 
   return (
@@ -69,8 +74,6 @@ const LoginForm = () => {
           <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
         </FormControl>
         <Button
-          as={NextLink}
-          href="/login"
           type="submit"
           w="100%"
           colorScheme="blue"
