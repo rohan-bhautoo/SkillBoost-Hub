@@ -9,15 +9,15 @@ import {
   Hide,
   IconButton,
   Image,
-  Link,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   Show,
+  Skeleton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Dispatch, useState } from "react";
 import logo from "../assets/logo.png";
 import AuthModal from "../auth/AuthModal";
@@ -147,7 +147,7 @@ const NavActions = ({ display }: { display: string }) => {
 const AuthStatus = () => {
   const { status, data: session } = useSession();
 
-  //if (status === "loading") return <Skeleton width="10rem" height="auto" />;
+  if (status === "loading") return <Skeleton />;
 
   if (status === "unauthenticated") return <NavActions display="none" />;
 
@@ -155,15 +155,15 @@ const AuthStatus = () => {
     <Menu>
       <MenuButton>
         <Avatar
-          name={session!.user?.name!}
+          name={session!.user!.name!}
           src={session!.user!.image!}
           size="sm"
           className="cursor-pointer"
         />
       </MenuButton>
       <MenuList>
-        <MenuItem>
-          <Link href="/api/auth/signout">Log out</Link>
+        <MenuItem as={Button} onClick={() => signOut()}>
+          Log out
         </MenuItem>
       </MenuList>
     </Menu>
