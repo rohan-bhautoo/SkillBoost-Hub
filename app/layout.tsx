@@ -1,9 +1,9 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import type { Metadata } from "next";
+import NavBar from "./components/NavBar";
 import { fonts } from "./fonts";
 import "./globals.css";
 import { Providers } from "./providers";
-import NavBar from "./components/NavBar";
 
 export const metadata: Metadata = {
   title: "SkillBoost Hub",

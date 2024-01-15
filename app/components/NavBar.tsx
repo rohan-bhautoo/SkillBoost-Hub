@@ -32,6 +32,7 @@ import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
 
 const NavBar = () => {
+  const { status, data: session } = useSession();
   const setNavBarDisplay = useNavBarDisplayStore((s) => s.setNavBarDisplay);
 
   return (
@@ -44,16 +45,21 @@ const NavBar = () => {
           </ButtonGroup>
         </Hide>
         <SearchInput />
+        <ColorModeSwitch />
         <Hide below="md">
           <AuthStatus />
         </Hide>
         <Show below="md">
-          <IconButton
-            aria-label="Open Menu"
-            icon={<HamburgerIcon />}
-            borderRadius={15}
-            onClick={() => setNavBarDisplay("flex")}
-          />
+          {status === "unauthenticated" ? (
+            <IconButton
+              aria-label="Open Menu"
+              icon={<HamburgerIcon />}
+              borderRadius={15}
+              onClick={() => setNavBarDisplay("flex")}
+            />
+          ) : (
+            <AuthStatus />
+          )}
         </Show>
       </HStack>
       <Hide above="md">
@@ -122,7 +128,6 @@ const NavAuthActions = () => {
           navBarDisplay.display === "none" ? "horizontal" : "vertical"
         }
       >
-        <ColorModeSwitch />
         <Button borderRadius={15}>Teach on SkillBoost</Button>
         <Button
           colorScheme="blue"
@@ -160,7 +165,9 @@ const AuthStatus = () => {
 
   return (
     <>
-      <NavActions />
+      <Hide below="md">
+        <NavActions />
+      </Hide>
       <Menu>
         <MenuButton>
           <Avatar
@@ -171,6 +178,28 @@ const AuthStatus = () => {
           />
         </MenuButton>
         <MenuList>
+          <Show below="md">
+            <MenuItem as={Button}>My Learnings</MenuItem>
+            <MenuItem
+              as={Button}
+              borderRadius={15}
+              aria-label="Favorites"
+              variant="ghost"
+            >
+              Favorites
+            </MenuItem>
+            <MenuItem
+              as={Button}
+              borderRadius={15}
+              aria-label="Notifications"
+              variant="ghost"
+            >
+              Notifications
+            </MenuItem>
+            <MenuItem as={Button} borderRadius={15} variant="ghost">
+              Cart
+            </MenuItem>
+          </Show>
           <MenuItem
             as={Button}
             onClick={() => signOut()}
@@ -209,7 +238,6 @@ const NavActions = () => {
         icon={<FaShoppingCart />}
         variant="ghost"
       />
-      <ColorModeSwitch />
     </ButtonGroup>
   );
 };
