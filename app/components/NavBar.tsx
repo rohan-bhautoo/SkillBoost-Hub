@@ -18,21 +18,16 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
-import { Dispatch, useState } from "react";
 import logo from "../assets/logo.png";
 import AuthModal from "../auth/AuthModal";
 import useAuthActionStore from "../stores/useAuthActionStore";
 import CoursesDropdown from "./CoursesDropdown";
 import ImageLink from "./ImageLink";
 import SearchInput from "./SearchInput";
-
-interface Props {
-  display: string;
-  changeDisplay: Dispatch<string>;
-}
+import useNavBarDisplayStore from "../stores/useNavBarDisplayStore";
 
 const NavBar = () => {
-  const [display, changeDisplay] = useState("none");
+  const setNavBarDisplay = useNavBarDisplayStore((s) => s.setNavBarDisplay);
 
   return (
     <>
@@ -52,12 +47,12 @@ const NavBar = () => {
             aria-label="Open Menu"
             icon={<HamburgerIcon />}
             borderRadius={15}
-            onClick={() => changeDisplay("flex")}
+            onClick={() => setNavBarDisplay("flex")}
           />
         </Show>
       </HStack>
       <Hide above="md">
-        <HamburgerMenu display={display} changeDisplay={changeDisplay} />
+        <HamburgerMenu />
       </Hide>
     </>
   );
@@ -71,11 +66,14 @@ const Logo = () => {
   );
 };
 
-const HamburgerMenu = ({ display, changeDisplay }: Props) => {
+const HamburgerMenu = () => {
+  const navBarDisplay = useNavBarDisplayStore((s) => s.navBarDisplay);
+  const setNavBarDisplay = useNavBarDisplayStore((s) => s.setNavBarDisplay);
+
   return (
     <Flex
       w="100vw"
-      display={display}
+      display={navBarDisplay.display}
       zIndex={20}
       h="100vh"
       pos="fixed"
@@ -94,27 +92,30 @@ const HamburgerMenu = ({ display, changeDisplay }: Props) => {
           icon={<CloseIcon />}
           bg="none"
           borderRadius={15}
-          onClick={() => changeDisplay("none")}
+          onClick={() => setNavBarDisplay("none")}
         />
       </Flex>
 
       <Flex flexDir="column" align="center" gap={4}>
         <Logo />
-        <NavActions display={display} />
+        <AuthStatus />
       </Flex>
     </Flex>
   );
 };
 
-const NavActions = ({ display }: { display: string }) => {
+const NavActions = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navBarDisplay = useNavBarDisplayStore((s) => s.navBarDisplay);
   const setAuthAction = useAuthActionStore((s) => s.setAction);
 
   return (
     <>
       <ButtonGroup
         spacing="4"
-        orientation={display === "none" ? "horizontal" : "vertical"}
+        orientation={
+          navBarDisplay.display === "none" ? "horizontal" : "vertical"
+        }
       >
         <Button borderRadius={15}>Teach on SkillBoost</Button>
         <Button
@@ -149,7 +150,7 @@ const AuthStatus = () => {
 
   if (status === "loading") return <Skeleton />;
 
-  if (status === "unauthenticated") return <NavActions display="none" />;
+  if (status === "unauthenticated") return <NavActions />;
 
   return (
     <Menu>
