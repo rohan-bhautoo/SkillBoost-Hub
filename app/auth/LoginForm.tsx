@@ -13,22 +13,20 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Dispatch, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { z } from "zod";
+import useAuthActionStore from "../stores/useAuthActionStore";
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
-interface Props {
-  setAction: Dispatch<string>;
-}
+const LoginForm = () => {
+  const setAuthAction = useAuthActionStore((s) => s.setAction);
 
-const LoginForm = ({ setAction }: Props) => {
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>({
@@ -52,7 +50,7 @@ const LoginForm = ({ setAction }: Props) => {
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
-      <form className="space-y-4" onSubmit={onSubmit}>
+      <form className="space-y-5" onSubmit={onSubmit}>
         <FormControl isInvalid={!!errors.email}>
           <Input
             placeholder="Email Address"
@@ -85,23 +83,23 @@ const LoginForm = ({ setAction }: Props) => {
           Continue with Facebook
         </Button>
         <Divider />
-        <Box pb={4} textAlign="center">
-          <Text>
-            Don't have an account?{" "}
-            <Button
-              color="blue.400"
-              variant="ghost"
-              pl={1}
-              pb={1}
-              _hover={{ color: "blue.500" }}
-              _active={{ bgColor: "none" }}
-              onClick={() => setAction("SIGNUP")}
-            >
-              Sign up
-            </Button>
-          </Text>
-        </Box>
       </form>
+      <Box textAlign="center">
+        <Text>
+          Don't have an account?{" "}
+          <Button
+            color="blue.400"
+            variant="ghost"
+            pl={1}
+            pb={1}
+            _hover={{ color: "blue.500" }}
+            _active={{ bgColor: "none" }}
+            onClick={() => setAuthAction("SIGNUP")}
+          >
+            Sign up
+          </Button>
+        </Text>
+      </Box>
     </div>
   );
 };

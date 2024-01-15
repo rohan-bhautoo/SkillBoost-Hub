@@ -17,6 +17,7 @@ import AuthModal from "../auth/AuthModal";
 import CoursesDropdown from "./CoursesDropdown";
 import ImageLink from "./ImageLink";
 import SearchInput from "./SearchInput";
+import useAuthActionStore from "../stores/useAuthActionStore";
 
 interface Props {
   display: string;
@@ -100,7 +101,7 @@ const HamburgerMenu = ({ display, changeDisplay }: Props) => {
 
 const NavActions = ({ display }: { display: string }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [authAction, setAuthAction] = useState("");
+  const setAuthAction = useAuthActionStore((s) => s.setAction);
 
   return (
     <>
@@ -131,7 +132,7 @@ const NavActions = ({ display }: { display: string }) => {
         </Button>
       </ButtonGroup>
 
-      <AuthModal authAction={authAction} isOpen={isOpen} onClose={onClose} />
+      <AuthModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 };

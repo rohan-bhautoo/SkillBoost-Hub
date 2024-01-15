@@ -12,19 +12,15 @@ import { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
+import useAuthActionStore from "../stores/useAuthActionStore";
 
 interface Props {
-  authAction: string;
   isOpen: boolean;
   onClose: () => void;
 }
 
-const AuthModal = ({ authAction, isOpen, onClose }: Props) => {
-  const [action, setAction] = useState("");
-
-  useEffect(() => {
-    setAction(authAction);
-  }, [authAction]);
+const AuthModal = ({ isOpen, onClose }: Props) => {
+  const authAction = useAuthActionStore((s) => s.authAction.action);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -36,11 +32,7 @@ const AuthModal = ({ authAction, isOpen, onClose }: Props) => {
         <ModalCloseButton />
         <ModalBody>
           <VStack gap={5}>
-            {action === "LOGIN" ? (
-              <LoginForm setAction={setAction} />
-            ) : (
-              <SignupForm setAction={setAction} />
-            )}
+            {authAction === "LOGIN" ? <LoginForm /> : <SignupForm />}
           </VStack>
         </ModalBody>
       </ModalContent>

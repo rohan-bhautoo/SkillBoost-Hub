@@ -13,17 +13,16 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Dispatch, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import useAuthActionStore from "../stores/useAuthActionStore";
 
 type SignupFormData = z.infer<typeof signupSchema>;
 
-interface Props {
-  setAction: Dispatch<string>;
-}
+const SignupForm = () => {
+  const setAuthAction = useAuthActionStore((s) => s.setAction);
 
-const SignupForm = ({ setAction }: Props) => {
   const {
     register,
     watch,
@@ -53,7 +52,7 @@ const SignupForm = ({ setAction }: Props) => {
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
-      <form className="space-y-4" onSubmit={onSubmit}>
+      <form className="space-y-5" onSubmit={onSubmit}>
         <FormControl isInvalid={!!errors.firstName}>
           <Input
             placeholder="First Name"
@@ -103,25 +102,25 @@ const SignupForm = ({ setAction }: Props) => {
           Sign up
         </Button>
         <Divider />
-        <Box pb={4} textAlign="center">
-          <Text>
-            Already have an account?{" "}
-            <Button
-              color="blue.400"
-              variant="ghost"
-              pl={1}
-              pb={1}
-              _hover={{ color: "blue.500" }}
-              _active={{ bgColor: "none" }}
-              onClick={() => {
-                setAction("LOGIN");
-              }}
-            >
-              Log in
-            </Button>
-          </Text>
-        </Box>
       </form>
+      <Box textAlign="center">
+        <Text>
+          Already have an account?{" "}
+          <Button
+            color="blue.400"
+            variant="ghost"
+            pl={1}
+            pb={1}
+            _hover={{ color: "blue.500" }}
+            _active={{ bgColor: "none" }}
+            onClick={() => {
+              setAuthAction("LOGIN");
+            }}
+          >
+            Log in
+          </Button>
+        </Text>
+      </Box>
     </div>
   );
 };
