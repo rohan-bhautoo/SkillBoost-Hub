@@ -8,11 +8,10 @@ import {
   ModalOverlay,
   VStack,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
+import useAuthActionStore from "../stores/useAuthActionStore";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
-import useAuthActionStore from "../stores/useAuthActionStore";
 
 interface Props {
   isOpen: boolean;

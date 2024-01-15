@@ -13,6 +13,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios, { AxiosError } from "axios";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -32,6 +35,7 @@ const SignupForm = () => {
     resolver: zodResolver(signupSchema),
   });
 
+  const router = useRouter();
   const [error, setError] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
 
@@ -39,8 +43,27 @@ const SignupForm = () => {
   const [passwordMatch, setPasswordMatch] = useState("");
 
   const onSubmit = handleSubmit(async (data) => {
-    setSubmitting(true);
-    console.log(data);
+    try {
+      setSubmitting(true);
+      const res = await axios
+        .post("api/register", {
+          name: `${data.firstName} ${data.lastName}`,
+          email: data.email,
+          password: data.password,
+        })
+        .catch((error: AxiosError) => {
+          setSubmitting(false);
+          setError(error.message);
+          return;
+        });
+
+      signIn("credentials", { email: data.email, password: data.password });
+      //router.refresh();
+      console.log(data);
+    } catch (error) {
+      setSubmitting(false);
+      setError("An unexpected error occurred.");
+    }
   });
 
   return (

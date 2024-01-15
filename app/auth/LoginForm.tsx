@@ -19,6 +19,7 @@ import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { z } from "zod";
 import useAuthActionStore from "../stores/useAuthActionStore";
+import NextLink from "next/link";
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
@@ -68,6 +69,8 @@ const LoginForm = () => {
           <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
         </FormControl>
         <Button
+          as={NextLink}
+          href="/login"
           type="submit"
           w="100%"
           colorScheme="blue"
