@@ -7,6 +7,7 @@ import {
   Flex,
   HStack,
   Hide,
+  Icon,
   IconButton,
   Image,
   Menu,
@@ -18,13 +19,17 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
+import { MdOutlineLogout } from "react-icons/md";
 import logo from "../assets/logo.png";
 import AuthModal from "../auth/AuthModal";
 import useAuthActionStore from "../stores/useAuthActionStore";
+import useNavBarDisplayStore from "../stores/useNavBarDisplayStore";
+import ColorModeSwitch from "./ColorModeSwitch";
 import CoursesDropdown from "./CoursesDropdown";
 import ImageLink from "./ImageLink";
 import SearchInput from "./SearchInput";
-import useNavBarDisplayStore from "../stores/useNavBarDisplayStore";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { IoMdNotifications } from "react-icons/io";
 
 const NavBar = () => {
   const setNavBarDisplay = useNavBarDisplayStore((s) => s.setNavBarDisplay);
@@ -104,7 +109,7 @@ const HamburgerMenu = () => {
   );
 };
 
-const NavActions = () => {
+const NavAuthActions = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navBarDisplay = useNavBarDisplayStore((s) => s.navBarDisplay);
   const setAuthAction = useAuthActionStore((s) => s.setAction);
@@ -117,6 +122,7 @@ const NavActions = () => {
           navBarDisplay.display === "none" ? "horizontal" : "vertical"
         }
       >
+        <ColorModeSwitch />
         <Button borderRadius={15}>Teach on SkillBoost</Button>
         <Button
           colorScheme="blue"
@@ -150,24 +156,61 @@ const AuthStatus = () => {
 
   if (status === "loading") return <Skeleton />;
 
-  if (status === "unauthenticated") return <NavActions />;
+  if (status === "unauthenticated") return <NavAuthActions />;
 
   return (
-    <Menu>
-      <MenuButton>
-        <Avatar
-          name={session!.user!.name!}
-          src={session!.user!.image!}
-          size="sm"
-          className="cursor-pointer"
-        />
-      </MenuButton>
-      <MenuList>
-        <MenuItem as={Button} onClick={() => signOut()}>
-          Log out
-        </MenuItem>
-      </MenuList>
-    </Menu>
+    <>
+      <NavActions />
+      <Menu>
+        <MenuButton>
+          <Avatar
+            name={session!.user!.name!}
+            src={session!.user!.image!}
+            size="sm"
+            className="cursor-pointer"
+          />
+        </MenuButton>
+        <MenuList>
+          <MenuItem
+            as={Button}
+            onClick={() => signOut()}
+            rightIcon={<Icon as={MdOutlineLogout} mt={1} />}
+          >
+            Log out
+          </MenuItem>
+        </MenuList>
+      </Menu>
+    </>
+  );
+};
+
+const NavActions = () => {
+  return (
+    <ButtonGroup>
+      <Button variant="ghost" borderRadius={15}>
+        My Learnings
+      </Button>
+      <IconButton
+        borderRadius={15}
+        aria-label="Favorites"
+        icon={<FaHeart />}
+        variant="ghost"
+      />
+      <IconButton
+        borderRadius={15}
+        aria-label="Notifications"
+        icon={<IoMdNotifications />}
+        fontSize={22}
+        variant="ghost"
+      />
+      <IconButton
+        borderRadius={15}
+        aria-label="Cart"
+        icon={<FaShoppingCart />}
+        variant="ghost"
+      />
+      <ColorModeSwitch />
+    </ButtonGroup>
   );
 };
 
