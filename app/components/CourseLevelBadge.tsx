@@ -1,6 +1,5 @@
 import { Badge } from "@chakra-ui/react";
 import { Level } from "@prisma/client";
-import React from "react";
 
 interface Props {
   level: Level;
