@@ -32,7 +32,7 @@ import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
 
 const NavBar = () => {
-  const { status, data: session } = useSession();
+  const { status } = useSession();
   const setNavBarDisplay = useNavBarDisplayStore((s) => s.setNavBarDisplay);
 
   return (

@@ -31,7 +31,7 @@ export default function RootLayout({
             <GridItem area="nav">
               <NavBar />
             </GridItem>
-            <GridItem area="main">
+            <GridItem area="main" m={5}>
               <main>{children}</main>
             </GridItem>
           </Grid>
