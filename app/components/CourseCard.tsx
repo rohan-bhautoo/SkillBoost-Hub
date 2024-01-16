@@ -3,6 +3,7 @@ import { StarIcon } from "@chakra-ui/icons";
 import { Badge, Box, Card, CardBody, Image, Text } from "@chakra-ui/react";
 import noImage from "../assets/no-image-placeholder.webp";
 import { Course, Instructor } from "@prisma/client";
+import CourseLevelBadge from "./CourseLevelBadge";
 
 interface Props {
   course: Course;
@@ -22,7 +23,7 @@ const CourseCard = ({ course, instructor }: Props) => {
 
         <Box p={6}>
           <Box display="flex" alignItems="baseline">
-            <Badge colorScheme="green">Beginner</Badge>
+            <CourseLevelBadge level={course.level} />
           </Box>
           <Box
             mt="1"
