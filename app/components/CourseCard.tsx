@@ -11,7 +11,7 @@ interface Props {
 
 const CourseCard = ({ course, instructor }: Props) => {
   return (
-    <Card maxW="md">
+    <Card>
       <CardBody p={0}>
         <Image
           src={course.thumbnail ?? noImage.src}

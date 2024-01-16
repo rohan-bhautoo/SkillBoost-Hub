@@ -24,7 +24,7 @@ export default function Home() {
         background="linear-gradient(120deg, rgba(120, 188, 178, 0.5) 0%, rgba(255, 255, 255, 0) 30%, rgba(222, 200, 246, 0.5) 60%, rgba(105, 21, 195, 0) 120%)"
       >
         <CardBody>
-          <SimpleGrid columns={{ base: 2, sm: 1, md: 1, lg: 2, xl: 2 }}>
+          <SimpleGrid columns={{ base: 1, sm: 1, md: 1, lg: 2, xl: 2 }}>
             <Center>
               <Box>
                 <Heading as="h1" size="4xl">

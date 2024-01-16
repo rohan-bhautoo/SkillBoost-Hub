@@ -8,7 +8,6 @@ interface Props {
 const CourseCardContainer = ({ children }: Props) => {
   return (
     <Box
-      maxW="sm"
       borderWidth="1px"
       borderRadius="lg"
       _hover={{
