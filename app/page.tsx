@@ -4,7 +4,6 @@ import {
   Card,
   CardBody,
   Center,
-  Container,
   Heading,
   Hide,
   Image,
@@ -12,8 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import onlineEducation from "./assets/onlineEducation.png";
-import CourseCard from "./components/CourseCard";
-import CourseCardContainer from "./components/CourseCardContainer";
+import CourseGrid from "./components/CourseGrid";
 
 export default function Home() {
   return (
@@ -58,20 +56,7 @@ export default function Home() {
         </CardBody>
       </Card>
 
-      <Container maxW="100%" p={0} mt={10}>
-        <Heading as="h2" size="lg">
-          Course Categories
-        </Heading>
-        <SimpleGrid
-          my={5}
-          spacing={4}
-          templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
-        >
-          <CourseCardContainer>
-            <CourseCard />
-          </CourseCardContainer>
-        </SimpleGrid>
-      </Container>
+      <CourseGrid />
     </>
   );
 }
