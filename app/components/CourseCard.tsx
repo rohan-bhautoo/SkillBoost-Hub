@@ -1,8 +1,8 @@
 "use client";
 import { StarIcon } from "@chakra-ui/icons";
-import { Badge, Box, Card, CardBody, Image, Text } from "@chakra-ui/react";
-import noImage from "../assets/no-image-placeholder.webp";
+import { Box, Card, CardBody, Image, Text } from "@chakra-ui/react";
 import { Course, Instructor } from "@prisma/client";
+import noImage from "../assets/no-image-placeholder.webp";
 import CourseLevelBadge from "./CourseLevelBadge";
 
 interface Props {

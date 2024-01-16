@@ -24,8 +24,10 @@ model Course {
   categoryId   Int
   instructor   Instructor @relation(fields: [instructorId], references: [id])
   instructorId Int
+  reviewRating Float?
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
+  reviews      Review[]
 }
 
 enum Level {
@@ -113,6 +115,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
+  reviews       Review[]
 }
 
 model VerificationToken {
@@ -121,4 +124,16 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  rating    Float    @default(0)
+  comment   String?  @db.Text
+  courseId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  course    Course   @relation(fields: [courseId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
 }
