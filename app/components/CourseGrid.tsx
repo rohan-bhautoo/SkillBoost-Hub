@@ -29,9 +29,9 @@ const CourseGrid = async () => {
       </Flex>
       <Divider />
       <SimpleGrid
+        columns={{ base: 1, sm: 1, md: 2, lg: 4, xl: 4 }}
         my={5}
         spacing={4}
-        templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
       >
         {courses.map((course) => (
           <CourseCardContainer key={course.id}>
