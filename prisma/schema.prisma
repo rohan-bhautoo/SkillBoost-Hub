@@ -17,9 +17,9 @@ model Course {
   duration     String     @db.VarChar(255)
   price        Float      @db.Double
   level        Level
-  thumbnail    String     @db.VarChar(255)
-  startDate    DateTime
-  endDate      DateTime
+  thumbnail    String?    @db.VarChar(255)
+  startDate    DateTime?
+  endDate      DateTime?
   category     Category   @relation(fields: [categoryId], references: [id])
   categoryId   Int
   instructor   Instructor @relation(fields: [instructorId], references: [id])
@@ -37,7 +37,7 @@ enum Level {
 model Category {
   id                    Int                   @id @default(autoincrement())
   name                  String                @unique @db.VarChar(255)
-  subCategories         SubCategory[]         @relation("CategorySubcategories")
+  subCategories         SubCategory[]
   courses               Course[]
   createdAt             DateTime              @default(now())
   updatedAt             DateTime              @updatedAt
@@ -47,7 +47,7 @@ model Category {
 model SubCategory {
   id                    Int                   @id @default(autoincrement())
   name                  String                @unique @db.VarChar(255)
-  categories            Category[]            @relation("CategorySubcategories")
+  categories            Category[]
   createdAt             DateTime              @default(now())
   updatedAt             DateTime              @updatedAt
   categorySubcategories CategorySubcategory[]
@@ -69,6 +69,7 @@ model Instructor {
   firstName String   @db.VarChar(255)
   lastName  String   @db.VarChar(255)
   email     String   @unique @db.VarChar(255)
+  image     String?
   courses   Course[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
