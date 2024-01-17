@@ -1,6 +1,5 @@
-import React from "react";
-import CourseGrid from "../components/CourseGrid";
 import { Box, HStack } from "@chakra-ui/react";
+import CourseGrid from "../components/CourseGrid";
 import SortSelector from "../components/SortSelector";
 
 const CoursesPage = () => {
