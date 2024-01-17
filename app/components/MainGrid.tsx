@@ -11,6 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import onlineEducation from "../assets/onlineEducation.png";
+import Link from "next/link";
 
 const MainGrid = () => {
   return (
@@ -34,9 +35,11 @@ const MainGrid = () => {
                 more advanced learning features.
               </Text>
 
-              <Button mt={10} variant="solid" colorScheme="blue">
-                Explore Courses
-              </Button>
+              <Link href="/courses">
+                <Button mt={10} variant="solid" colorScheme="blue">
+                  Explore Courses
+                </Button>
+              </Link>
             </Box>
           </Center>
 
