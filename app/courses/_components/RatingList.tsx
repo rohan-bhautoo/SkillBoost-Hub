@@ -26,8 +26,8 @@ const RatingList = () => {
       </Heading>
       <List>
         {stars.map((item, index) => (
-          <RadioGroup onChange={setValue} value={value}>
-            <ListItem key={index} paddingY="5px">
+          <RadioGroup key={index} onChange={setValue} value={value}>
+            <ListItem paddingY="5px">
               <Radio value={index.toString()}>
                 <Button variant="link">
                   {Array(5)
