@@ -1,4 +1,5 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
+import Sidebar from "./components/Sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -13,8 +14,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       }}
     >
       <Show above="lg">
-        <GridItem area="aside" paddingX={5}>
-          aside
+        <GridItem area="aside" paddingX={4}>
+          <Sidebar />
         </GridItem>
       </Show>
       <GridItem area="main">
