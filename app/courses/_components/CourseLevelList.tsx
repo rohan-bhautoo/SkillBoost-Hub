@@ -12,10 +12,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 const levelMap: {
   label: string;
-  value?: Level;
+  value?: Level | "-1";
   color: "default" | "green" | "yellow" | "purple";
 }[] = [
-  { label: "All Levels", color: "default" },
+  { label: "All Levels", value: "-1", color: "default" },
   { label: "Beginner", value: "Beginner", color: "green" },
   { label: "Intermediate", value: "Intermediate", color: "yellow" },
   { label: "Advanced", value: "Advanced", color: "purple" },
@@ -34,9 +34,13 @@ const CourseLevelList = () => {
         {Object.values(levelMap).map((level) => (
           <ListItem key={level.label} paddingY="5px">
             <Checkbox
-              isChecked={searchParams.get("level") === level.value}
-              defaultValue={searchParams.get("level") || ""}
-              value={level.value || -1}
+              isChecked={
+                searchParams.get("level") == null && level.value == "-1"
+                  ? true
+                  : searchParams.get("level") === level.value
+              }
+              defaultChecked={level.value === "-1"}
+              value={level.value}
               onChange={(e) => {
                 const level = e.target.value;
                 const params = new URLSearchParams();
