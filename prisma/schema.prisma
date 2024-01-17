@@ -39,6 +39,7 @@ enum Level {
 model Category {
   id                    Int                   @id @default(autoincrement())
   name                  String                @unique @db.VarChar(255)
+  thumbnail             String?               @db.VarChar(255)
   subCategories         SubCategory[]
   courses               Course[]
   createdAt             DateTime              @default(now())
