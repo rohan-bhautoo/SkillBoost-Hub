@@ -1,15 +1,14 @@
 import {
+  Avatar,
   Card,
   CardBody,
-  Flex,
-  Spacer,
-  Divider,
   CardFooter,
-  Avatar,
-  Heading,
-  Box,
-  Text,
   Center,
+  Divider,
+  Flex,
+  Heading,
+  Spacer,
+  Text,
 } from "@chakra-ui/react";
 import { Review, User } from "@prisma/client";
 import { RiDoubleQuotesL, RiDoubleQuotesR } from "react-icons/ri";

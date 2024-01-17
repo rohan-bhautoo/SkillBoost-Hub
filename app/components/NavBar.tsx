@@ -9,7 +9,6 @@ import {
   Hide,
   Icon,
   IconButton,
-  Image,
   Menu,
   MenuButton,
   MenuItem,
@@ -19,17 +18,16 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { IoMdNotifications } from "react-icons/io";
 import { MdOutlineLogout } from "react-icons/md";
-import logo from "../assets/logo.png";
 import AuthModal from "../auth/AuthModal";
 import useAuthActionStore from "../stores/useAuthActionStore";
 import useNavBarDisplayStore from "../stores/useNavBarDisplayStore";
 import ColorModeSwitch from "./ColorModeSwitch";
 import CoursesDropdown from "./CoursesDropdown";
-import ImageLink from "./ImageLink";
+import Logo from "./Logo";
 import SearchInput from "./SearchInput";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
-import { IoMdNotifications } from "react-icons/io";
 
 const NavBar = () => {
   const { status } = useSession();
@@ -66,14 +64,6 @@ const NavBar = () => {
         <HamburgerMenu />
       </Hide>
     </>
-  );
-};
-
-const Logo = () => {
-  return (
-    <ImageLink href="/">
-      <Image src={logo.src} maxW={"100px"} h="auto" objectFit="cover" />
-    </ImageLink>
   );
 };
 

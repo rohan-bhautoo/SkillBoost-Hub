@@ -4,6 +4,7 @@ import NavBar from "./components/NavBar";
 import { fonts } from "./fonts";
 import "./globals.css";
 import { Providers } from "./providers";
+import Footer from "./components/Footer";
 
 export const metadata: Metadata = {
   title: "SkillBoost Hub",
@@ -21,8 +22,8 @@ export default function RootLayout({
         <Providers>
           <Grid
             templateAreas={{
-              base: `"nav" "main"`,
-              lg: `"nav nav" "main"`,
+              base: `"nav" "main" "footer"`,
+              lg: `"nav nav" "main" "footer"`,
             }}
             templateColumns={{
               base: "1fr",
@@ -33,6 +34,9 @@ export default function RootLayout({
             </GridItem>
             <GridItem area="main" m={5}>
               <main>{children}</main>
+            </GridItem>
+            <GridItem area="footer">
+              <Footer />
             </GridItem>
           </Grid>
         </Providers>
