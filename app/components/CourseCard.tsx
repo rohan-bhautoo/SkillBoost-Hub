@@ -44,7 +44,10 @@ const CourseCard = ({ course, instructor }: Props) => {
             {Array(5)
               .fill("")
               .map((_, i) => (
-                <StarIcon key={i} color="yellow.500" />
+                <StarIcon
+                  key={i}
+                  color={i < course.reviewRating! ? "yellow.500" : "gray.300"}
+                />
               ))}
             <Box as="span" ml="2" color="gray.600" fontSize="sm">
               20 reviews
