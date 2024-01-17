@@ -2,12 +2,18 @@ import prisma from "@/prisma/client";
 import { SimpleGrid } from "@chakra-ui/react";
 import CourseCard from "./CourseCard";
 import CourseCardContainer from "./CourseCardContainer";
+import { Level } from "@prisma/client";
 
 interface Props {
+  levelParam?: Level;
   fetchAll: boolean;
 }
 
-const CourseGrid = async ({ fetchAll }: Props) => {
+const CourseGrid = async ({ fetchAll, levelParam }: Props) => {
+  const levels = Object.values(Level);
+  const level = levels.includes(levelParam!) ? levelParam : undefined;
+  const where = { level };
+
   const courses =
     fetchAll == false
       ? await prisma.course.findMany({
@@ -18,6 +24,7 @@ const CourseGrid = async ({ fetchAll }: Props) => {
           },
         })
       : await prisma.course.findMany({
+          where: where,
           include: {
             instructor: true,
           },

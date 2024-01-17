@@ -1,3 +1,4 @@
+"use client";
 import {
   Badge,
   Checkbox,
@@ -7,33 +8,44 @@ import {
   ListItem,
 } from "@chakra-ui/react";
 import { Level } from "@prisma/client";
+import { useRouter, useSearchParams } from "next/navigation";
 
-const levelMap: Record<
-  Level,
-  { label: string; color: "green" | "yellow" | "purple" }
-> = {
-  Beginner: { label: "Beginner", color: "green" },
-  Intermediate: { label: "Intermediate", color: "yellow" },
-  Advanced: { label: "Advanced", color: "purple" },
-};
+const levelMap: {
+  label: string;
+  value?: Level;
+  color: "default" | "green" | "yellow" | "purple";
+}[] = [
+  { label: "All Levels", color: "default" },
+  { label: "Beginner", value: "Beginner", color: "green" },
+  { label: "Intermediate", value: "Intermediate", color: "yellow" },
+  { label: "Advanced", value: "Advanced", color: "purple" },
+];
 
 const CourseLevelList = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   return (
     <>
       <Heading fontSize={"xl"} marginBottom={2}>
         Levels
       </Heading>
       <List>
-        <ListItem paddingY="5px">
-          <Checkbox value="default">
-            <Badge as={Link} colorScheme="default" mb={1}>
-              All Levels
-            </Badge>
-          </Checkbox>
-        </ListItem>
         {Object.values(levelMap).map((level) => (
           <ListItem key={level.label} paddingY="5px">
-            <Checkbox value={level.label}>
+            <Checkbox
+              isChecked={searchParams.get("level") === level.value}
+              defaultValue={searchParams.get("level") || ""}
+              value={level.value || -1}
+              onChange={(e) => {
+                const level = e.target.value;
+                const params = new URLSearchParams();
+                if (level && level !== "-1") params.append("level", level);
+
+                const query = params.size ? "?" + params.toString() : "";
+                router.push("/courses" + query);
+              }}
+            >
               <Badge as={Link} colorScheme={level.color} mb={1}>
                 {level.label}
               </Badge>

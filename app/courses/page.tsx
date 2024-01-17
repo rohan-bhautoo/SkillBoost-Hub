@@ -1,8 +1,13 @@
 import { Box, HStack } from "@chakra-ui/react";
 import CourseGrid from "../components/CourseGrid";
 import SortSelector from "../components/SortSelector";
+import { Level } from "@prisma/client";
 
-const CoursesPage = () => {
+interface Props {
+  searchParams: { level: Level };
+}
+
+const CoursesPage = ({ searchParams }: Props) => {
   return (
     <>
       <Box paddingLeft={2}>
@@ -10,9 +15,11 @@ const CoursesPage = () => {
           <SortSelector />
         </HStack>
       </Box>
-      <CourseGrid fetchAll={true} />
+      <CourseGrid levelParam={searchParams.level} fetchAll={true} />
     </>
   );
 };
+
+export const dynamic = "force-dynamic";
 
 export default CoursesPage;
