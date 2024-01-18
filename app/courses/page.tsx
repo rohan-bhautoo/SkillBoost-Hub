@@ -1,10 +1,10 @@
 import { Box, HStack } from "@chakra-ui/react";
 import CourseGrid from "../components/CourseGrid";
 import SortSelector from "../components/SortSelector";
-import { Level } from "@prisma/client";
+import CourseQuery from "../entities/CourseQuery";
 
 interface Props {
-  searchParams: { level: Level };
+  searchParams: CourseQuery;
 }
 
 const CoursesPage = ({ searchParams }: Props) => {
@@ -15,7 +15,7 @@ const CoursesPage = ({ searchParams }: Props) => {
           <SortSelector />
         </HStack>
       </Box>
-      <CourseGrid levelParam={searchParams.level} fetchAll={true} />
+      <CourseGrid searchParam={searchParams} fetchAll={true} />
     </>
   );
 };

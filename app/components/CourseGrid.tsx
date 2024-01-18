@@ -3,26 +3,30 @@ import { SimpleGrid } from "@chakra-ui/react";
 import CourseCard from "./CourseCard";
 import CourseCardContainer from "./CourseCardContainer";
 import { Level } from "@prisma/client";
+import CourseQuery from "../entities/CourseQuery";
 
 interface Props {
-  levelParam?: Level;
+  searchParam?: CourseQuery;
   fetchAll: boolean;
 }
 
-const CourseGrid = async ({ fetchAll, levelParam }: Props) => {
+const CourseGrid = async ({ fetchAll, searchParam }: Props) => {
   const levels = Object.values(Level);
 
   let where = {};
 
-  if (typeof levelParam === "string") {
+  if (typeof searchParam?.level === "string") {
     // Single level selected
-    where = { level: levelParam };
-  } else if (Array.isArray(levelParam)) {
+    where = { level: searchParam?.level };
+  } else if (Array.isArray(searchParam?.level)) {
     // Multiple levels selected
-    where = { level: { in: levelParam } };
-  } else if (typeof levelParam === "object" && levelParam !== null) {
+    where = { level: { in: searchParam?.level } };
+  } else if (
+    typeof searchParam?.level === "object" &&
+    searchParam?.level !== null
+  ) {
     // Object structure for multiple levels selected
-    const selectedLevels = Object.values(levelParam);
+    const selectedLevels = Object.values(searchParam?.level);
     where = { level: { in: selectedLevels } };
   }
 
