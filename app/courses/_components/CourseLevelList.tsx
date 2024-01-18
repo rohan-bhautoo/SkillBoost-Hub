@@ -66,6 +66,9 @@ const CourseLevelList = () => {
                   params.append("level", level);
                 });
 
+                if (searchParams.get("rating"))
+                  params.append("rating", searchParams.get("rating")!);
+
                 const query = params.toString() ? `?${params.toString()}` : "";
                 router.push(`/courses${query}`);
               }}
