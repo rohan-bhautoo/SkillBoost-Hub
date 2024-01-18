@@ -25,6 +25,13 @@ const CourseLevelList = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const isChecked = (value?: Level | "-1") => {
+    const selectedLevels = searchParams.getAll("level");
+    return value === "-1"
+      ? selectedLevels.length === 0
+      : selectedLevels.includes(value!);
+  };
+
   return (
     <>
       <Heading fontSize={"xl"} marginBottom={2}>
@@ -34,20 +41,33 @@ const CourseLevelList = () => {
         {Object.values(levelMap).map((level) => (
           <ListItem key={level.label} paddingY="5px">
             <Checkbox
-              isChecked={
-                searchParams.get("level") == null && level.value == "-1"
-                  ? true
-                  : searchParams.get("level") === level.value
-              }
+              isChecked={isChecked(level.value)}
               defaultChecked={level.value === "-1"}
               value={level.value}
               onChange={(e) => {
-                const level = e.target.value;
-                const params = new URLSearchParams();
-                if (level && level !== "-1") params.append("level", level);
+                const selectedLevel = e.target.value;
+                const selectedLevels = searchParams.getAll("level");
 
-                const query = params.size ? "?" + params.toString() : "";
-                router.push("/courses" + query);
+                let updatedLevels: string[];
+
+                if (selectedLevel === "-1") {
+                  updatedLevels = [];
+                } else if (selectedLevels.includes(selectedLevel)) {
+                  updatedLevels = selectedLevels.filter(
+                    (level) => level !== selectedLevel
+                  );
+                } else {
+                  updatedLevels = [...selectedLevels, selectedLevel];
+                }
+
+                const params = new URLSearchParams();
+
+                updatedLevels.forEach((level) => {
+                  params.append("level", level);
+                });
+
+                const query = params.toString() ? `?${params.toString()}` : "";
+                router.push(`/courses${query}`);
               }}
             >
               <Badge as={Link} colorScheme={level.color} mb={1}>

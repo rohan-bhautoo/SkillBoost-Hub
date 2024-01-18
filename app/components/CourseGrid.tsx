@@ -11,8 +11,20 @@ interface Props {
 
 const CourseGrid = async ({ fetchAll, levelParam }: Props) => {
   const levels = Object.values(Level);
-  const level = levels.includes(levelParam!) ? levelParam : undefined;
-  const where = { level };
+
+  let where = {};
+
+  if (typeof levelParam === "string") {
+    // Single level selected
+    where = { level: levelParam };
+  } else if (Array.isArray(levelParam)) {
+    // Multiple levels selected
+    where = { level: { in: levelParam } };
+  } else if (typeof levelParam === "object" && levelParam !== null) {
+    // Object structure for multiple levels selected
+    const selectedLevels = Object.values(levelParam);
+    where = { level: { in: selectedLevels } };
+  }
 
   const courses =
     fetchAll == false
@@ -24,7 +36,7 @@ const CourseGrid = async ({ fetchAll, levelParam }: Props) => {
           },
         })
       : await prisma.course.findMany({
-          where: where,
+          where,
           include: {
             instructor: true,
           },
