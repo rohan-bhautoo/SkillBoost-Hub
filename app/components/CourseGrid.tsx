@@ -45,6 +45,16 @@ const CourseGrid = async ({ fetchAll, searchParams }: Props) => {
       reviewRating: { gte: parseFloat(searchParams.rating.toString()) },
     };
 
+  const validOrderByOptions = Object.keys(prisma.course.fields).filter(
+    (field) => field !== "reviews"
+  );
+
+  const orderBy = searchParams
+    ? validOrderByOptions.includes(searchParams!.orderBy)
+      ? { [searchParams.orderBy]: "asc" }
+      : undefined
+    : undefined;
+
   const courses =
     fetchAll == false
       ? await prisma.course.findMany({
@@ -56,6 +66,7 @@ const CourseGrid = async ({ fetchAll, searchParams }: Props) => {
         })
       : await prisma.course.findMany({
           where,
+          orderBy: orderBy,
           include: {
             instructor: true,
           },
