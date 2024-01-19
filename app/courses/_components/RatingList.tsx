@@ -8,14 +8,13 @@ import {
   Radio,
   RadioGroup,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 const RatingList = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [value, setValue] = useState("");
   const stars = [
     { stars: 5 },
     { stars: 4 },
@@ -23,6 +22,16 @@ const RatingList = () => {
     { stars: 2 },
     { stars: 1 },
   ];
+
+  const ratingParam = searchParams.get("rating");
+  const initialRatingIndex = stars.findIndex(
+    (item) => item.stars.toString() === ratingParam
+  );
+
+  const [value, setValue] = useState(
+    initialRatingIndex !== -1 ? initialRatingIndex.toString() : ""
+  );
+
   return (
     <>
       <Heading fontSize={"xl"} marginBottom={3}>
@@ -34,6 +43,7 @@ const RatingList = () => {
             <ListItem paddingY="5px">
               <Radio
                 value={index.toString()}
+                isChecked={index.toString() === value}
                 onChange={() => {
                   const params = new URLSearchParams(searchParams.toString());
 
