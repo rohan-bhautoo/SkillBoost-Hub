@@ -47,11 +47,8 @@ const RatingList = () => {
                 onChange={() => {
                   const params = new URLSearchParams(searchParams.toString());
 
-                  if (item) {
-                    params.set("rating", item.stars.toString());
-                  } else {
-                    params.delete("rating");
-                  }
+                  if (item) params.set("rating", item.stars.toString());
+                  else params.delete("rating");
 
                   const query = params.toString();
                   router.push(`/courses${query ? `?${query}` : ""}`);

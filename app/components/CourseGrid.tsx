@@ -1,9 +1,8 @@
 import prisma from "@/prisma/client";
 import { SimpleGrid } from "@chakra-ui/react";
+import CourseQuery from "../entities/CourseQuery";
 import CourseCard from "./CourseCard";
 import CourseCardContainer from "./CourseCardContainer";
-import { Level } from "@prisma/client";
-import CourseQuery from "../entities/CourseQuery";
 
 interface Props {
   searchParam?: CourseQuery;
@@ -11,8 +10,6 @@ interface Props {
 }
 
 const CourseGrid = async ({ fetchAll, searchParam }: Props) => {
-  const levels = Object.values(Level);
-
   let where = {};
 
   if (typeof searchParam?.level === "string") {
@@ -29,6 +26,18 @@ const CourseGrid = async ({ fetchAll, searchParam }: Props) => {
     const selectedLevels = Object.values(searchParam?.level);
     where = { level: { in: selectedLevels } };
   }
+
+  if (searchParam?.category)
+    where = {
+      ...where,
+      categoryId: parseInt(searchParam.category.toString()),
+    };
+
+  if (searchParam?.rating)
+    where = {
+      ...where,
+      reviewRating: { gte: parseFloat(searchParam.rating.toString()) },
+    };
 
   const courses =
     fetchAll == false

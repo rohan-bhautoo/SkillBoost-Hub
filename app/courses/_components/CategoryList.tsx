@@ -1,5 +1,5 @@
+"use client";
 import noImage from "@/app/assets/no-image-placeholder.webp";
-import prisma from "@/prisma/client";
 import {
   Button,
   HStack,
@@ -8,9 +8,16 @@ import {
   List,
   ListItem,
 } from "@chakra-ui/react";
+import { Category } from "@prisma/client";
+import { useRouter, useSearchParams } from "next/navigation";
 
-const CategoryList = async () => {
-  const categories = await prisma.category.findMany();
+interface Props {
+  categories: Category[];
+}
+
+const CategoryList = ({ categories }: Props) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   return (
     <>
@@ -34,6 +41,19 @@ const CategoryList = async () => {
                 variant="link"
                 whiteSpace={"normal"}
                 textAlign={"left"}
+                value={category.id}
+                onClick={(e) => {
+                  const selectedCategory = e.currentTarget.value;
+
+                  const params = new URLSearchParams(searchParams.toString());
+
+                  if (selectedCategory)
+                    params.set("category", selectedCategory);
+                  else params.delete("category");
+
+                  const query = params.toString();
+                  router.push(`/courses${query ? `?${query}` : ""}`);
+                }}
               >
                 {category.name}
               </Button>
