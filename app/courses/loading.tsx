@@ -7,7 +7,6 @@ import {
   SimpleGrid,
   Skeleton,
   SkeletonText,
-  Text,
 } from "@chakra-ui/react";
 import CourseCardContainer from "../components/CourseCardContainer";
 
