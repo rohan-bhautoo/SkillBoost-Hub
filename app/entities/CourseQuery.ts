@@ -1,7 +1,7 @@
-import { Category, Level } from "@prisma/client";
+import { Level } from "@prisma/client";
 
 export default interface CourseQuery {
-  category: number;
+  categoryId: number;
   level: Level;
   rating: number;
 }

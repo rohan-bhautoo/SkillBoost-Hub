@@ -27,10 +27,10 @@ const CourseGrid = async ({ fetchAll, searchParam }: Props) => {
     where = { level: { in: selectedLevels } };
   }
 
-  if (searchParam?.category)
+  if (searchParam?.categoryId)
     where = {
       ...where,
-      categoryId: parseInt(searchParam.category.toString()),
+      categoryId: parseInt(searchParam.categoryId.toString()),
     };
 
   if (searchParam?.rating)

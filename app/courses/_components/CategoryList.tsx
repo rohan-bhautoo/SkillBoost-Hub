@@ -19,6 +19,8 @@ const CategoryList = ({ categories }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const categoryId = searchParams.get("categoryId");
+
   return (
     <>
       <Heading fontSize={"xl"} marginBottom={3}>
@@ -36,11 +38,13 @@ const CategoryList = ({ categories }: Props) => {
                 fallbackSrc={noImage.src}
               />
               <Button
-                fontWeight="normal"
                 fontSize="lg"
                 variant="link"
                 whiteSpace={"normal"}
                 textAlign={"left"}
+                fontWeight={
+                  category.id === parseInt(categoryId!) ? "bold" : "normal"
+                }
                 value={category.id}
                 onClick={(e) => {
                   const selectedCategory = e.currentTarget.value;
@@ -48,8 +52,8 @@ const CategoryList = ({ categories }: Props) => {
                   const params = new URLSearchParams(searchParams.toString());
 
                   if (selectedCategory)
-                    params.set("category", selectedCategory);
-                  else params.delete("category");
+                    params.set("categoryId", selectedCategory);
+                  else params.delete("categoryId");
 
                   const query = params.toString();
                   router.push(`/courses${query ? `?${query}` : ""}`);
