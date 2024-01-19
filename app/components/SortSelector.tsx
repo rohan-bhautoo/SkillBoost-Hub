@@ -1,15 +1,21 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import React from "react";
 import { BsChevronDown } from "react-icons/bs";
+import NextLink from "next/link";
+import CourseQuery from "../entities/CourseQuery";
 
-const SortSelector = () => {
+interface Props {
+  searchParams: CourseQuery;
+}
+
+const SortSelector = ({ searchParams }: Props) => {
   const sortOrders = [
     { value: "", label: "Relevance" },
-    { value: "-added", label: "Date added" },
-    { value: "name", label: "Name" },
-    { value: "-released", label: "Release date" },
-    { value: "metacritic", label: "Popularity" },
-    { value: "-rating", label: "Average rating" },
+    { value: "title", label: "Name" },
+    { value: "price", label: "Price" },
+    { value: "createdAt", label: "Release date" },
+    { value: "updatedAt", label: "Recently Updated" },
+    { value: "rating", label: "Average rating" },
   ];
 
   return (
@@ -19,7 +25,14 @@ const SortSelector = () => {
       </MenuButton>
       <MenuList>
         {sortOrders.map((order) => (
-          <MenuItem key={order.value} value={order.value}>
+          <MenuItem
+            key={order.value}
+            value={order.value}
+            as={NextLink}
+            href={{
+              query: { ...searchParams, orderBy: order.value },
+            }}
+          >
             {order.label}
           </MenuItem>
         ))}

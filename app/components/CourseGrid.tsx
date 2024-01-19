@@ -12,8 +12,11 @@ interface Props {
 
 const CourseGrid = async ({ fetchAll, searchParams }: Props) => {
   const levels = Object.values(Level);
-  const level = levels.includes(searchParams!.level)
-    ? searchParams?.level
+
+  const level = searchParams
+    ? levels.includes(searchParams!.level)
+      ? searchParams?.level
+      : undefined
     : undefined;
 
   let where = {};
