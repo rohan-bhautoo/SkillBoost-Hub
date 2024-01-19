@@ -74,7 +74,7 @@ const CourseGrid = async ({ fetchAll, searchParams }: Props) => {
 
   return (
     <SimpleGrid
-      columns={{ base: 1, sm: 1, md: 2, lg: 4, xl: 4 }}
+      columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 4 }}
       my={5}
       padding="10px"
       spacing={6}
