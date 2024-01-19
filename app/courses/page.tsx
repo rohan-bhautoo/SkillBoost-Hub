@@ -15,7 +15,7 @@ const CoursesPage = ({ searchParams }: Props) => {
           <SortSelector />
         </HStack>
       </Box>
-      <CourseGrid searchParam={searchParams} fetchAll={true} />
+      <CourseGrid searchParams={searchParams} fetchAll={true} />
     </>
   );
 };

@@ -3,40 +3,43 @@ import { SimpleGrid } from "@chakra-ui/react";
 import CourseQuery from "../entities/CourseQuery";
 import CourseCard from "./CourseCard";
 import CourseCardContainer from "./CourseCardContainer";
+import { Level } from "@prisma/client";
 
 interface Props {
-  searchParam?: CourseQuery;
+  searchParams?: CourseQuery;
   fetchAll: boolean;
 }
 
-const CourseGrid = async ({ fetchAll, searchParam }: Props) => {
+const CourseGrid = async ({ fetchAll, searchParams }: Props) => {
+  const levels = Object.values(Level);
+  const level = levels.includes(searchParams!.level)
+    ? searchParams?.level
+    : undefined;
+
   let where = {};
 
-  if (typeof searchParam?.level === "string") {
+  if (typeof level === "string") {
     // Single level selected
-    where = { level: searchParam?.level };
-  } else if (Array.isArray(searchParam?.level)) {
+    where = { level };
+  } else if (Array.isArray(level)) {
     // Multiple levels selected
-    where = { level: { in: searchParam?.level } };
-  } else if (
-    typeof searchParam?.level === "object" &&
-    searchParam?.level !== null
-  ) {
+    where = { level: { in: level } };
+  } else if (typeof level === "object" && level !== null) {
     // Object structure for multiple levels selected
-    const selectedLevels = Object.values(searchParam?.level);
+    const selectedLevels = Object.values(level);
     where = { level: { in: selectedLevels } };
   }
 
-  if (searchParam?.categoryId)
+  if (searchParams?.categoryId)
     where = {
       ...where,
-      categoryId: parseInt(searchParam.categoryId.toString()),
+      categoryId: parseInt(searchParams.categoryId.toString()),
     };
 
-  if (searchParam?.rating)
+  if (searchParams?.rating)
     where = {
       ...where,
-      reviewRating: { gte: parseFloat(searchParam.rating.toString()) },
+      reviewRating: { gte: parseFloat(searchParams.rating.toString()) },
     };
 
   const courses =

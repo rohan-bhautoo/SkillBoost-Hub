@@ -1,7 +1,8 @@
-import { Level } from "@prisma/client";
+import { Course, Level } from "@prisma/client";
 
 export default interface CourseQuery {
   categoryId: number;
   level: Level;
   rating: number;
+  orderBy: keyof Course;
 }
