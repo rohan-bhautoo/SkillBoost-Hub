@@ -1,5 +1,5 @@
 import prisma from "@/prisma/client";
-import { SimpleGrid } from "@chakra-ui/react";
+import { Box, Center, SimpleGrid } from "@chakra-ui/react";
 import { Level } from "@prisma/client";
 import CourseQuery from "../entities/CourseQuery";
 import CourseCard from "./CourseCard";
@@ -55,7 +55,7 @@ const CourseGrid = async ({ fetchAll, searchParams }: Props) => {
       : undefined
     : undefined;
 
-  const page = parseInt(searchParams!.page) || 1;
+  const page = searchParams?.page ? parseInt(searchParams.page) : 1;
   const pageSize = 8;
 
   const courses =
@@ -82,23 +82,31 @@ const CourseGrid = async ({ fetchAll, searchParams }: Props) => {
   });
 
   return (
-    <SimpleGrid
-      columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 4 }}
-      my={5}
-      padding="10px"
-      spacing={6}
-    >
-      {courses.map((course) => (
-        <CourseCardContainer key={course.id}>
-          <CourseCard course={course} instructor={course.instructor} />
-        </CourseCardContainer>
-      ))}
-      <Pagination
-        pageSize={pageSize}
-        currentPage={page}
-        itemCount={courseCount}
-      />
-    </SimpleGrid>
+    <>
+      <SimpleGrid
+        columns={{ base: 1, sm: 1, md: 2, lg: 3, xl: 4 }}
+        my={5}
+        padding="10px"
+        spacing={6}
+      >
+        {courses.map((course) => (
+          <CourseCardContainer key={course.id}>
+            <CourseCard course={course} instructor={course.instructor} />
+          </CourseCardContainer>
+        ))}
+      </SimpleGrid>
+      {fetchAll && (
+        <Box w="100%">
+          <Center>
+            <Pagination
+              pageSize={pageSize}
+              currentPage={page}
+              itemCount={courseCount}
+            />
+          </Center>
+        </Box>
+      )}
+    </>
   );
 };
 

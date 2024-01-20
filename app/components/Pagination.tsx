@@ -5,7 +5,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
@@ -28,41 +28,53 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
   };
 
   return (
-    <Flex align="center" gap="2">
-      <Text size="2">
-        Page {currentPage} of {pageCount}
-      </Text>
+    <Flex align="center" gap="2" width="100%" justify={"center"}>
       <Button
         color="gray"
         variant="soft"
-        disabled={currentPage === 1}
+        isDisabled={currentPage === 1}
         onClick={() => changePage(1)}
       >
-        <ArrowLeftIcon />
+        <ArrowLeftIcon mt={1} mr={2} />
+        First
       </Button>
       <Button
         color="gray"
         variant="soft"
-        disabled={currentPage === 1}
+        isDisabled={currentPage === 1}
         onClick={() => changePage(currentPage - 1)}
       >
-        <ChevronLeftIcon />
+        <ChevronLeftIcon mt={1} />
+        Previous
       </Button>
+
+      {Array.from({ length: pageCount }, (_, index) => (
+        <Button
+          key={index + 1}
+          colorScheme={currentPage === index + 1 ? "blue" : "gray"}
+          variant="outline"
+          onClick={() => changePage(index + 1)}
+        >
+          {index + 1}
+        </Button>
+      ))}
+
       <Button
         color="gray"
         variant="soft"
-        disabled={currentPage === pageCount}
+        isDisabled={currentPage === pageCount}
         onClick={() => changePage(currentPage + 1)}
       >
-        <ChevronRightIcon />
+        Next
+        <ChevronRightIcon mt={1} />
       </Button>
       <Button
         color="gray"
         variant="soft"
-        disabled={currentPage === pageCount}
+        isDisabled={currentPage === pageCount}
         onClick={() => changePage(pageCount)}
       >
-        <ArrowRightIcon />
+        Last <ArrowRightIcon mt={1} ml={2} />
       </Button>
     </Flex>
   );
