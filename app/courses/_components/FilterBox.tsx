@@ -33,13 +33,14 @@ const FilterBox = ({ searchParams }: Props) => {
               colorScheme="blue"
               variant="solid"
               borderRadius="full"
-              px={2}
-              py={1}
+              px={3}
+              pl={5}
+              py={2}
               mr={2}
+              display="flex"
+              alignItems="center"
             >
-              {`${key}: ${
-                value !== null && value !== undefined ? value.toString() : ""
-              }`}{" "}
+              {`${key}: ${value}`}
               <CloseButton
                 size="sm"
                 onClick={() => handleFilterRemove(key as keyof CourseQuery)}
