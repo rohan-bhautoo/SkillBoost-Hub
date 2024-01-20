@@ -50,6 +50,8 @@ const RatingList = () => {
                   if (item) params.set("rating", item.stars.toString());
                   else params.delete("rating");
 
+                  if (params.has("page")) params.delete("page");
+
                   const query = params.toString();
                   router.push(`/courses${query ? `?${query}` : ""}`);
                 }}

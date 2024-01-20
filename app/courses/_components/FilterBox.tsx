@@ -25,6 +25,12 @@ const FilterBox = ({ searchParams }: Props) => {
       })
       .join("&");
 
+    const params = new URLSearchParams(query);
+    if (params.has("page")) {
+      params.delete("page");
+      query = params.toString();
+    }
+
     router.push(`/courses${query ? `?${query}` : ""}`);
   };
 
