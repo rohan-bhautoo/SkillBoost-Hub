@@ -60,7 +60,9 @@ const CourseLevelList = () => {
                   updatedLevels = [...selectedLevels, selectedLevel];
                 }
 
-                const params = new URLSearchParams();
+                const params = new URLSearchParams(searchParams.toString());
+
+                params.delete("level");
 
                 updatedLevels.forEach((level) => {
                   params.append("level", level);

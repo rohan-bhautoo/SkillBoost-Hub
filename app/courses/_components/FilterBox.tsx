@@ -14,9 +14,15 @@ const FilterBox = ({ searchParams }: Props) => {
     const { [filterToRemove]: removedFilter, ...remainingFilters } =
       searchParams;
 
-    const query = Object.entries(remainingFilters)
+    let query = Object.entries(remainingFilters)
       .filter(([_, value]) => value != null)
-      .map(([key, value]) => `${key}=${value}`)
+      .map(([key, value]) => {
+        if (Array.isArray(value)) {
+          return value.map((v) => `${key}=${v}`).join("&");
+        } else {
+          return `${key}=${value}`;
+        }
+      })
       .join("&");
 
     router.push(`/courses${query ? `?${query}` : ""}`);
