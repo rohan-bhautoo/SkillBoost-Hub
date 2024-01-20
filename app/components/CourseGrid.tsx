@@ -4,6 +4,7 @@ import { Level } from "@prisma/client";
 import CourseQuery from "../entities/CourseQuery";
 import CourseCard from "./CourseCard";
 import CourseCardContainer from "./CourseCardContainer";
+import Pagination from "./Pagination";
 
 interface Props {
   searchParams?: CourseQuery;
@@ -54,6 +55,9 @@ const CourseGrid = async ({ fetchAll, searchParams }: Props) => {
       : undefined
     : undefined;
 
+  const page = parseInt(searchParams!.page) || 1;
+  const pageSize = 8;
+
   const courses =
     fetchAll == false
       ? await prisma.course.findMany({
@@ -66,10 +70,16 @@ const CourseGrid = async ({ fetchAll, searchParams }: Props) => {
       : await prisma.course.findMany({
           where,
           orderBy: orderBy,
+          skip: (page - 1) * pageSize,
+          take: pageSize,
           include: {
             instructor: true,
           },
         });
+
+  const courseCount = await prisma.course.count({
+    where: where,
+  });
 
   return (
     <SimpleGrid
@@ -83,6 +93,11 @@ const CourseGrid = async ({ fetchAll, searchParams }: Props) => {
           <CourseCard course={course} instructor={course.instructor} />
         </CourseCardContainer>
       ))}
+      <Pagination
+        pageSize={pageSize}
+        currentPage={page}
+        itemCount={courseCount}
+      />
     </SimpleGrid>
   );
 };

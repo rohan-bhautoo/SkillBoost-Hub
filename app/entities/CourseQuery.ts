@@ -5,4 +5,5 @@ export default interface CourseQuery {
   level: Level;
   rating: number;
   orderBy: keyof Course;
+  page: string;
 }

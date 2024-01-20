@@ -33,6 +33,7 @@ const FilterBox = ({ searchParams }: Props) => {
       {Object.entries(searchParams).map(
         ([key, value]) =>
           // Only display non-empty and non-undefined filters
+          key !== "page" &&
           value != null && (
             <Badge
               key={key}
