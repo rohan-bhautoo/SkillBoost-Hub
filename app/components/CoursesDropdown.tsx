@@ -31,16 +31,14 @@ const CoursesDropdown = () => {
         <SimpleGrid columns={4} p={5} gap={4}>
           {categories?.map((category) => (
             <MenuGroup key={category.id} title={category.name} p={0}>
-              {category.categorySubcategories?.map((subCategory) => (
-                <MenuItem
-                  key={subCategory.id}
-                  fontSize={14}
-                  pl={4}
-                  borderRadius={10}
-                >
-                  {subCategory.subCategory.name}
-                </MenuItem>
-              ))}
+              <MenuItem
+                key={category.id}
+                fontSize={14}
+                pl={4}
+                borderRadius={10}
+              >
+                {category.name}
+              </MenuItem>
             </MenuGroup>
           ))}
         </SimpleGrid>
