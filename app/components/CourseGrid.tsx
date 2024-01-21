@@ -39,11 +39,16 @@ const CourseGrid = async ({ fetchAll, searchParams }: Props) => {
       categoryId: parseInt(searchParams.categoryId.toString()),
     };
 
-  if (searchParams?.rating)
+  if (searchParams?.rating) {
+    const rating = parseFloat(searchParams.rating.toString());
     where = {
       ...where,
-      reviewRating: { gte: parseFloat(searchParams.rating.toString()) },
+      reviewRating: {
+        gte: rating,
+        lt: rating + 0.9,
+      },
     };
+  }
 
   const validOrderByOptions = Object.keys(prisma.course.fields).filter(
     (field) => field !== "reviews"
