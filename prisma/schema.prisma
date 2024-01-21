@@ -11,23 +11,24 @@ datasource db {
 }
 
 model Course {
-  id           Int        @id @default(autoincrement())
-  title        String     @unique @db.VarChar(255)
-  description  String     @db.Text
-  duration     String     @db.VarChar(255)
-  price        Float      @db.Double
-  level        Level
-  thumbnail    String?    @db.VarChar(255)
-  startDate    DateTime?
-  endDate      DateTime?
-  category     Category   @relation(fields: [categoryId], references: [id])
-  categoryId   Int
-  instructor   Instructor @relation(fields: [instructorId], references: [id])
-  instructorId Int
-  reviewRating Float?
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  reviews      Review[]
+  id              Int           @id @default(autoincrement())
+  title           String        @unique @db.VarChar(255)
+  duration        String        @db.VarChar(255)
+  price           Float         @db.Double
+  level           Level
+  thumbnail       String?       @db.VarChar(255)
+  startDate       DateTime?
+  endDate         DateTime?
+  category        Category      @relation(fields: [categoryId], references: [id])
+  categoryId      Int
+  instructor      Instructor    @relation(fields: [instructorId], references: [id])
+  instructorId    Int
+  reviewRating    Float?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  reviews         Review[]
+  courseDetails   CourseDetails @relation(fields: [courseDetailsId], references: [id])
+  courseDetailsId Int
 }
 
 enum Level {
@@ -36,35 +37,67 @@ enum Level {
   Advanced
 }
 
+model CourseDetails {
+  id          Int             @id @default(autoincrement())
+  courseId    Int             @unique
+  description String          @db.Text
+  images      CourseImage[]
+  overview    String?
+  objectives  String?
+  content     CourseContent[]
+  resources   String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  Course      Course[]
+}
+
+model CourseImage {
+  id              Int           @id @default(autoincrement())
+  courseDetailsId Int
+  url             String
+  description     String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  courseDetails   CourseDetails @relation(fields: [courseDetailsId], references: [id])
+}
+
+model CourseContent {
+  id              Int           @id @default(autoincrement())
+  courseDetailsId Int
+  topics          Topic[]
+  courseDetails   CourseDetails @relation(fields: [courseDetailsId], references: [id])
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model Topic {
+  id              Int           @id @default(autoincrement())
+  courseContentId Int
+  title           String        @db.VarChar(255)
+  details         String?       @db.Text
+  courseContent   CourseContent @relation(fields: [courseContentId], references: [id])
+  subtopics       SubTopic[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model SubTopic {
+  id        Int      @id @default(autoincrement())
+  topicId   Int
+  title     String
+  details   String?
+  topic     Topic    @relation(fields: [topicId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Category {
-  id                    Int                   @id @default(autoincrement())
-  name                  String                @unique @db.VarChar(255)
-  thumbnail             String?               @db.VarChar(255)
-  subCategories         SubCategory[]
-  courses               Course[]
-  createdAt             DateTime              @default(now())
-  updatedAt             DateTime              @updatedAt
-  categorySubcategories CategorySubcategory[]
-}
-
-model SubCategory {
-  id                    Int                   @id @default(autoincrement())
-  name                  String                @unique @db.VarChar(255)
-  categories            Category[]
-  createdAt             DateTime              @default(now())
-  updatedAt             DateTime              @updatedAt
-  categorySubcategories CategorySubcategory[]
-}
-
-model CategorySubcategory {
-  id            Int         @id @default(autoincrement())
-  categoryId    Int
-  subCategoryId Int
-  category      Category    @relation(fields: [categoryId], references: [id])
-  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
-
-  @@index([categoryId])
-  @@index([subCategoryId])
+  id        Int      @id @default(autoincrement())
+  name      String   @unique @db.VarChar(255)
+  thumbnail String?  @db.VarChar(255)
+  courses   Course[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Instructor {
