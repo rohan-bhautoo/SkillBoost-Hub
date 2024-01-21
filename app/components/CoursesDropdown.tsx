@@ -3,7 +3,6 @@ import {
   Button,
   Menu,
   MenuButton,
-  MenuGroup,
   MenuItem,
   MenuList,
   SimpleGrid,
@@ -30,16 +29,9 @@ const CoursesDropdown = () => {
       <MenuList>
         <SimpleGrid columns={4} p={5} gap={4}>
           {categories?.map((category) => (
-            <MenuGroup key={category.id} title={category.name} p={0}>
-              <MenuItem
-                key={category.id}
-                fontSize={14}
-                pl={4}
-                borderRadius={10}
-              >
-                {category.name}
-              </MenuItem>
-            </MenuGroup>
+            <MenuItem key={category.id} fontSize={14} pl={4} borderRadius={10}>
+              {category.name}
+            </MenuItem>
           ))}
         </SimpleGrid>
       </MenuList>

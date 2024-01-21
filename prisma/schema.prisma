@@ -11,24 +11,24 @@ datasource db {
 }
 
 model Course {
-  id              Int           @id @default(autoincrement())
-  title           String        @unique @db.VarChar(255)
-  duration        String        @db.VarChar(255)
-  price           Float         @db.Double
+  id              Int            @id @default(autoincrement())
+  title           String         @unique @db.VarChar(255)
+  duration        String         @db.VarChar(255)
+  price           Float          @db.Double
   level           Level
-  thumbnail       String?       @db.VarChar(255)
+  thumbnail       String?        @db.VarChar(255)
   startDate       DateTime?
   endDate         DateTime?
-  category        Category      @relation(fields: [categoryId], references: [id])
+  category        Category       @relation(fields: [categoryId], references: [id])
   categoryId      Int
-  instructor      Instructor    @relation(fields: [instructorId], references: [id])
+  instructor      Instructor     @relation(fields: [instructorId], references: [id])
   instructorId    Int
   reviewRating    Float?
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
   reviews         Review[]
-  courseDetails   CourseDetails @relation(fields: [courseDetailsId], references: [id])
-  courseDetailsId Int
+  courseDetails   CourseDetails? @relation(fields: [courseDetailsId], references: [id])
+  courseDetailsId Int?
 }
 
 enum Level {
