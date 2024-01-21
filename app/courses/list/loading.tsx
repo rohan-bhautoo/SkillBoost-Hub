@@ -8,7 +8,7 @@ import {
   Skeleton,
   SkeletonText,
 } from "@chakra-ui/react";
-import CourseCardContainer from "../components/CourseCardContainer";
+import CourseCardContainer from "../../components/CourseCardContainer";
 
 const LoadingCoursesPage = () => {
   const courses = [1, 2, 3, 4, 5, 6, 7, 8];

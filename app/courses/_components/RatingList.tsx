@@ -53,7 +53,7 @@ const RatingList = () => {
                   if (params.has("page")) params.delete("page");
 
                   const query = params.toString();
-                  router.push(`/courses${query ? `?${query}` : ""}`);
+                  router.push(`/courses/list${query ? `?${query}` : ""}`);
                 }}
               >
                 <Button variant="link">

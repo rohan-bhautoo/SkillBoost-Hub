@@ -25,9 +25,10 @@ import AuthModal from "../auth/AuthModal";
 import useAuthActionStore from "../stores/useAuthActionStore";
 import useNavBarDisplayStore from "../stores/useNavBarDisplayStore";
 import ColorModeSwitch from "./ColorModeSwitch";
-import CoursesDropdown from "./CoursesDropdown";
+
 import Logo from "./Logo";
 import SearchInput from "./SearchInput";
+import CoursesDropdown from "./CoursesDropdown";
 
 const NavBar = () => {
   const { status } = useSession();

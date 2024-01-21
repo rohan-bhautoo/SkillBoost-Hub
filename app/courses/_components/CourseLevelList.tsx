@@ -74,7 +74,7 @@ const CourseLevelList = () => {
                 if (params.has("page")) params.delete("page");
 
                 const query = params.toString() ? `?${params.toString()}` : "";
-                router.push(`/courses${query}`);
+                router.push(`/courses/list${query}`);
               }}
             >
               <Badge as={Link} colorScheme={level.color} mb={1}>

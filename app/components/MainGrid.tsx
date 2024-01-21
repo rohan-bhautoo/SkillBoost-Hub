@@ -35,7 +35,7 @@ const MainGrid = () => {
                 more advanced learning features.
               </Text>
 
-              <Link href="/courses">
+              <Link href="/courses/list">
                 <Button mt={10} variant="solid" colorScheme="blue">
                   Explore Courses
                 </Button>

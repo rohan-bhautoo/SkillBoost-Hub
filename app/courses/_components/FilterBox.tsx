@@ -31,7 +31,7 @@ const FilterBox = ({ searchParams }: Props) => {
       query = params.toString();
     }
 
-    router.push(`/courses${query ? `?${query}` : ""}`);
+    router.push(`/courses/list${query ? `?${query}` : ""}`);
   };
 
   return (

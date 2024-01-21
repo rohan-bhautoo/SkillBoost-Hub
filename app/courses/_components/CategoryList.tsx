@@ -58,7 +58,7 @@ const CategoryList = ({ categories }: Props) => {
                   if (params.has("page")) params.delete("page");
 
                   const query = params.toString();
-                  router.push(`/courses${query ? `?${query}` : ""}`);
+                  router.push(`/courses/list${query ? `?${query}` : ""}`);
                 }}
               >
                 {category.name}
