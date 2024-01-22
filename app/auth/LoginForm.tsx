@@ -14,13 +14,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaFacebook } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import { z } from "zod";
 import useAuthActionStore from "../stores/useAuthActionStore";
-import { signIn } from "next-auth/react";
 import { OAuthButtonGroup } from "./OAuthButtonGroup";
 
 type LoginFormData = z.infer<typeof loginSchema>;
