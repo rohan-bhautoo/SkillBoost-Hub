@@ -9,6 +9,7 @@ import {
   Divider,
   FormControl,
   FormErrorMessage,
+  HStack,
   Input,
   Text,
 } from "@chakra-ui/react";
@@ -20,6 +21,7 @@ import { FcGoogle } from "react-icons/fc";
 import { z } from "zod";
 import useAuthActionStore from "../stores/useAuthActionStore";
 import { signIn } from "next-auth/react";
+import { OAuthButtonGroup } from "./OAuthButtonGroup";
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
@@ -81,16 +83,16 @@ const LoginForm = () => {
         >
           Log in
         </Button>
-        <Divider />
-        <Button w="100%" leftIcon={<FcGoogle />}>
-          Continue with Google
-        </Button>
-        <Button w="100%" colorScheme="facebook" leftIcon={<FaFacebook />}>
-          Continue with Facebook
-        </Button>
-        <Divider />
+        <HStack>
+          <Divider />
+          <Text textStyle="sm" whiteSpace="nowrap" color="fg.muted">
+            or
+          </Text>
+          <Divider />
+        </HStack>
+        <OAuthButtonGroup />
       </form>
-      <Box textAlign="center">
+      <Box textAlign="center" mt={4}>
         <Text>
           Don't have an account?{" "}
           <Button
