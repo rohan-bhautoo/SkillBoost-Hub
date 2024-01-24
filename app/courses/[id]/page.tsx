@@ -1,10 +1,21 @@
 import RatingStar from "@/app/components/RatingStar";
 import prisma from "@/prisma/client";
-import { GridItem, Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Card,
+  CardBody,
+  Collapse,
+  GridItem,
+  Heading,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 
 import CourseSidebar from "./_components/CourseSidebar";
+import CourseObjectives from "./_components/CourseObjectives";
 
 interface Props {
   params: { id: string };
@@ -43,13 +54,19 @@ const CourseDetailPage = async ({ params }: Props) => {
       px={{ md: 5, lg: 10 }}
     >
       <GridItem colSpan={{ base: 1, sm: 1, md: 1, lg: 2, xl: 2 }}>
-        <Heading>{course.title}</Heading>
-        <Text>{course.courseDetails?.description}</Text>
-        <RatingStar rating={course.reviewRating ?? 0} totalReviews={20} />
-        <Text>
-          Created by {course.instructor.firstName} {course.instructor.lastName}
-        </Text>
-        <Text>Last updated {course.updatedAt.toUTCString()}</Text>
+        <Box>
+          <Heading>{course.title}</Heading>
+          <Text my={2} fontSize="lg">
+            {course.courseDetails?.description}
+          </Text>
+          <RatingStar rating={course.reviewRating ?? 0} totalReviews={20} />
+          <Text my={2}>
+            Created by {course.instructor.firstName}{" "}
+            {course.instructor.lastName}
+          </Text>
+          <Text>Last updated {course.updatedAt.toLocaleDateString()}</Text>
+          <CourseObjectives />
+        </Box>
       </GridItem>
       <GridItem>
         <CourseSidebar course={course} />
