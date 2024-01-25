@@ -2,10 +2,9 @@ import RatingStar from "@/app/components/RatingStar";
 import prisma from "@/prisma/client";
 import {
   Box,
-  Button,
   Card,
   CardBody,
-  Collapse,
+  CardHeader,
   GridItem,
   Heading,
   SimpleGrid,
@@ -13,9 +12,9 @@ import {
 } from "@chakra-ui/react";
 import { notFound } from "next/navigation";
 import { cache } from "react";
-
-import CourseSidebar from "./_components/CourseSidebar";
 import CourseObjectives from "./_components/CourseObjectives";
+import CourseSidebar from "./_components/CourseSidebar";
+import CourseTopics from "./_components/CourseTopics";
 
 interface Props {
   params: { id: string };
@@ -66,6 +65,20 @@ const CourseDetailPage = async ({ params }: Props) => {
           </Text>
           <Text>Last updated {course.updatedAt.toLocaleDateString()}</Text>
           <CourseObjectives />
+          <Card>
+            <CardHeader pb={0}>
+              <Heading size="md">Topics</Heading>
+            </CardHeader>
+            <CardBody>
+              {course.courseDetails?.content.map((content) => (
+                <CourseTopics
+                  key={content.id}
+                  content={content}
+                  topics={content.topics}
+                />
+              ))}
+            </CardBody>
+          </Card>
         </Box>
       </GridItem>
       <GridItem>
