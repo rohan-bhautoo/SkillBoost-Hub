@@ -53,8 +53,8 @@ const CourseTopics = ({ content, topics }: Props) => {
           </h2>
           <AccordionPanel pb={4}>
             <List spacing={1}>
-              {subTopics.map((subTopic) => (
-                <ListItem>
+              {subTopics.map((subTopic, index) => (
+                <ListItem key={index}>
                   <Flex align="center">
                     <ListIcon as={subTopic.icon} mr={4} />
                     <Text>{subTopic.label}</Text>
