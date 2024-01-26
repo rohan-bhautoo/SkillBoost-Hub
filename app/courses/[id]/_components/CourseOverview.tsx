@@ -19,8 +19,8 @@ const CourseOverview = () => {
         This course includes:
       </Text>
       <List spacing={1}>
-        {infos.map((info) => (
-          <ListItem>
+        {infos.map((info, index) => (
+          <ListItem key={index}>
             <ListIcon as={info.icon} mb={0.5} mr={4} />
             {info.label}
           </ListItem>
