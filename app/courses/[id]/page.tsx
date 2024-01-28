@@ -86,6 +86,9 @@ const CourseDetailPage = async ({ params }: Props) => {
                 strong: ({ node, ...props }) => (
                   <strong className="font-bold text-current" {...props} />
                 ),
+                hgroup: ({ node, ...props }) => (
+                  <strong className="font-bold text-current" {...props} />
+                ),
               }}
             >
               {course.courseDetails?.description}
