@@ -5,7 +5,13 @@ import ImageLink from "./ImageLink";
 const Logo = () => {
   return (
     <ImageLink href="/">
-      <Image src={logo.src} maxW={"100px"} h="auto" objectFit="cover" />
+      <Image
+        src={logo.src}
+        maxW={"100px"}
+        h="auto"
+        objectFit="cover"
+        alt="logo"
+      />
     </ImageLink>
   );
 };

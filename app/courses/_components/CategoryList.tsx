@@ -36,6 +36,7 @@ const CategoryList = ({ categories }: Props) => {
                 objectFit={"cover"}
                 src={category.thumbnail!}
                 fallbackSrc={noImage.src}
+                alt="Category image"
               />
               <Button
                 fontSize="lg"

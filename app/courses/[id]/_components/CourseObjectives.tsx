@@ -38,7 +38,7 @@ const CourseObjectives = () => {
   return (
     <Card my={5}>
       <CardHeader pb={0}>
-        <Heading size="md">What you'll learn</Heading>
+        <Heading size="md">What you&apos;ll learn</Heading>
       </CardHeader>
       <CardBody>
         <Collapse startingHeight={100} in={show}>

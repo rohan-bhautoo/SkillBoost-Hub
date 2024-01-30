@@ -26,7 +26,13 @@ const AuthModal = ({ isOpen, onClose }: Props) => {
       <ModalOverlay />
       <ModalContent>
         <Flex justify="center">
-          <Image src={logo.src} maxW={"100px"} h="auto" objectFit="cover" />
+          <Image
+            src={logo.src}
+            maxW={"100px"}
+            h="auto"
+            objectFit="cover"
+            alt="logo"
+          />
         </Flex>
         <ModalCloseButton />
         <ModalBody>

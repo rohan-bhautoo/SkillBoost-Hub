@@ -30,6 +30,7 @@ const CourseSidebar = ({ course }: Props) => {
           h="250px"
           objectFit="cover"
           borderTopRadius="lg"
+          alt="Thumbnail"
         />
         <Box p={6}>
           <Flex justify="space-between" mb={2}>

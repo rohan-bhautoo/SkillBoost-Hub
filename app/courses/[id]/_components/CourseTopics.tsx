@@ -43,7 +43,7 @@ const CourseTopics = ({ content, topics }: Props) => {
             <AccordionButton
               bgColor="var(--chakra-colors-blue-200)"
               color="black"
-              _hover=""
+              _hover={{ color: "none" }}
             >
               <Box as="span" flex="1" textAlign="left">
                 {topic.title}

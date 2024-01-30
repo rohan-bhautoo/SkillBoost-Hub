@@ -20,6 +20,7 @@ const CourseCard = ({ course, instructor }: Props) => {
             w="100%"
             h="250px"
             objectFit="cover"
+            alt="thumbnail"
           />
 
           <Box p={6}>

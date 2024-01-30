@@ -27,7 +27,7 @@ const MainGrid = () => {
           <Center>
             <Box>
               <Heading as="h1" size="4xl">
-                Don't just watch. Do.
+                Don&apos;t just watch. Do.
               </Heading>
 
               <Text fontSize="lg" py={2}>
@@ -50,6 +50,7 @@ const MainGrid = () => {
                 w="100%"
                 h="auto"
                 objectFit="cover"
+                alt="main wallpaper"
               />
             </Box>
           </Hide>

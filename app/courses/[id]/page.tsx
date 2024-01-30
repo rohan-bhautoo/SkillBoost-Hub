@@ -16,6 +16,7 @@ import CourseObjectives from "./_components/CourseObjectives";
 import CourseSidebar from "./_components/CourseSidebar";
 import CourseTopics from "./_components/CourseTopics";
 import ReactMarkdown from "react-markdown";
+import { CourseContent } from "@prisma/client";
 
 interface Props {
   params: { id: string };
@@ -71,7 +72,7 @@ const CourseDetailPage = async ({ params }: Props) => {
               <Heading size="md">Topics</Heading>
             </CardHeader>
             <CardBody>
-              {course.courseDetails?.content.map((content) => (
+              {course.courseDetails?.content.map((content: CourseContent) => (
                 <CourseTopics
                   key={content.id}
                   content={content}

@@ -92,7 +92,7 @@ const LoginForm = () => {
       </form>
       <Box textAlign="center" mt={4}>
         <Text>
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Button
             color="blue.400"
             variant="ghost"
