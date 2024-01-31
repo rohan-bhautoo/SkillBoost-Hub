@@ -44,7 +44,7 @@ const SignupForm = () => {
     try {
       setSubmitting(true);
       const res = await axios
-        .post("api/register", {
+        .post("api/auth/register", {
           name: `${data.firstName} ${data.lastName}`,
           email: data.email,
           password: data.password,
