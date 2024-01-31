@@ -10,13 +10,13 @@ import {
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
+import { CourseContent } from "@prisma/client";
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import CourseDescription from "./_components/CourseDescription";
 import CourseObjectives from "./_components/CourseObjectives";
 import CourseSidebar from "./_components/CourseSidebar";
 import CourseTopics from "./_components/CourseTopics";
-import ReactMarkdown from "react-markdown";
-import { CourseContent } from "@prisma/client";
 
 interface Props {
   params: { id: string };
@@ -81,20 +81,7 @@ const CourseDetailPage = async ({ params }: Props) => {
               ))}
             </CardBody>
           </Card>
-          <Card className="prose max-w-full" mt="4" p={5}>
-            <ReactMarkdown
-              components={{
-                strong: ({ node, ...props }) => (
-                  <strong className="font-bold text-current" {...props} />
-                ),
-                hgroup: ({ node, ...props }) => (
-                  <strong className="font-bold text-current" {...props} />
-                ),
-              }}
-            >
-              {course.courseDetails?.description}
-            </ReactMarkdown>
-          </Card>
+          <CourseDescription courseDetails={course.courseDetails} />
         </Box>
       </GridItem>
       <GridItem>
