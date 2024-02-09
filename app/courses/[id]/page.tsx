@@ -16,6 +16,7 @@ import CourseDescription from "./_components/CourseDescription";
 import CourseObjectives from "./_components/CourseObjectives";
 import CourseSidebar from "./_components/CourseSidebar";
 import CourseTopics from "./_components/CourseTopics";
+import CourseInstructor from "./_components/CourseInstructor";
 
 interface Props {
   params: { id: string };
@@ -81,6 +82,7 @@ const CourseDetailPage = async ({ params }: Props) => {
             </CardBody>
           </Card>
           <CourseDescription courseDetails={course.courseDetails!} />
+          <CourseInstructor instructor={course.instructor} />
         </Box>
       </GridItem>
       <GridItem>

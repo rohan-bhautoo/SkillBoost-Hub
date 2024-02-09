@@ -6,14 +6,9 @@ import {
   CardHeader,
   Collapse,
   Heading,
-  List,
-  ListIcon,
-  ListItem,
-  SimpleGrid,
 } from "@chakra-ui/react";
 import { CourseDetails } from "@prisma/client";
 import { useState } from "react";
-import { MdCheckCircle } from "react-icons/md";
 import ReactMarkdown from "react-markdown";
 
 interface Props {
