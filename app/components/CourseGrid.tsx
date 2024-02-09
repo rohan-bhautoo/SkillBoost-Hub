@@ -1,6 +1,6 @@
 import prisma from "@/prisma/client";
 import { Box, Center, SimpleGrid } from "@chakra-ui/react";
-import { Course, Level } from "@prisma/client";
+import { Level } from "@prisma/client";
 import CourseQuery from "../entities/CourseQuery";
 import CourseCard from "./CourseCard";
 import CourseCardContainer from "./CourseCardContainer";
@@ -94,7 +94,7 @@ const CourseGrid = async ({ fetchAll, searchParams }: Props) => {
         padding="10px"
         spacing={6}
       >
-        {courses.map((course: Course) => (
+        {courses.map((course) => (
           <CourseCardContainer key={course.id}>
             <CourseCard course={course} instructor={course.instructor} />
           </CourseCardContainer>

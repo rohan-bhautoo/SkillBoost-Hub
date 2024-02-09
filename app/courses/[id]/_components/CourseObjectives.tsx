@@ -1,16 +1,15 @@
 "use client";
 import {
+  Button,
   Card,
   CardBody,
-  Collapse,
-  Button,
   CardHeader,
+  Collapse,
   Heading,
-  SimpleGrid,
-  Text,
   List,
-  ListItem,
   ListIcon,
+  ListItem,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { MdCheckCircle } from "react-icons/md";

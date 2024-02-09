@@ -10,7 +10,6 @@ import {
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
-import { CourseContent } from "@prisma/client";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import CourseDescription from "./_components/CourseDescription";
@@ -58,7 +57,7 @@ const CourseDetailPage = async ({ params }: Props) => {
         <Box>
           <Heading>{course.title}</Heading>
           <Text my={2} fontSize="lg">
-            {course.courseDetails?.description}
+            {course.courseDetails?.overview}
           </Text>
           <RatingStar rating={course.reviewRating ?? 0} totalReviews={20} />
           <Text my={2}>
@@ -72,7 +71,7 @@ const CourseDetailPage = async ({ params }: Props) => {
               <Heading size="md">Topics</Heading>
             </CardHeader>
             <CardBody>
-              {course.courseDetails?.content.map((content: CourseContent) => (
+              {course.courseDetails?.content.map((content) => (
                 <CourseTopics
                   key={content.id}
                   content={content}
@@ -81,7 +80,7 @@ const CourseDetailPage = async ({ params }: Props) => {
               ))}
             </CardBody>
           </Card>
-          <CourseDescription courseDetails={course.courseDetails} />
+          <CourseDescription courseDetails={course.courseDetails!} />
         </Box>
       </GridItem>
       <GridItem>

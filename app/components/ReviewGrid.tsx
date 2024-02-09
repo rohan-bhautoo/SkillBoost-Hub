@@ -1,7 +1,6 @@
-import { Container, Divider, Heading, SimpleGrid } from "@chakra-ui/react";
 import prisma from "@/prisma/client";
+import { Container, Divider, Heading, SimpleGrid } from "@chakra-ui/react";
 import ReviewCard from "./ReviewCard";
-import { Review } from "@prisma/client";
 
 const ReviewGrid = async () => {
   const reviews = await prisma.review.findMany({
@@ -23,7 +22,7 @@ const ReviewGrid = async () => {
         my={5}
         spacing={4}
       >
-        {reviews.map((review: Review) => (
+        {reviews.map((review) => (
           <ReviewCard key={review.id} review={review} user={review.user} />
         ))}
       </SimpleGrid>
