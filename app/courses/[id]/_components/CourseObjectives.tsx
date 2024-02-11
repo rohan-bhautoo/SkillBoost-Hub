@@ -1,24 +1,18 @@
 "use client";
+import CollapsableContainer from "@/app/components/CollapsableContainer";
 import {
-  Button,
   Card,
   CardBody,
   CardHeader,
-  Collapse,
   Heading,
   List,
   ListIcon,
   ListItem,
   SimpleGrid,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { MdCheckCircle } from "react-icons/md";
 
 const CourseObjectives = () => {
-  const [show, setShow] = useState(false);
-
-  const handleToggle = () => setShow(!show);
-
   const objectives: string[] = [
     "You will learn how to leverage the power of Python to solve tasks.",
     "You will be able to use Python for your own work problems or personal projects.",
@@ -40,7 +34,7 @@ const CourseObjectives = () => {
         <Heading size="md">What you&apos;ll learn</Heading>
       </CardHeader>
       <CardBody>
-        <Collapse startingHeight={100} in={show}>
+        <CollapsableContainer startingHeight={100}>
           <SimpleGrid columns={2} gap={4}>
             {objectives.map((objective, index) => (
               <List key={index}>
@@ -51,10 +45,7 @@ const CourseObjectives = () => {
               </List>
             ))}
           </SimpleGrid>
-        </Collapse>
-        <Button size="sm" onClick={handleToggle} mt="1rem">
-          Show {show ? "Less" : "More"}
-        </Button>
+        </CollapsableContainer>
       </CardBody>
     </Card>
   );

@@ -1,11 +1,10 @@
 "use client";
+import CollapsableContainer from "@/app/components/CollapsableContainer";
 import {
   Avatar,
-  Button,
   Card,
   CardBody,
   CardHeader,
-  Collapse,
   Flex,
   Heading,
   List,
@@ -14,7 +13,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Instructor } from "@prisma/client";
-import { useState } from "react";
 import { FaAward, FaPlayCircle, FaStar, FaUserFriends } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
 
@@ -29,10 +27,6 @@ const CourseInstructor = ({ instructor }: Props) => {
     { label: "3,727,606 Students", icon: FaUserFriends },
     { label: "81 Courses", icon: FaPlayCircle },
   ];
-
-  const [show, setShow] = useState(false);
-
-  const handleToggle = () => setShow(!show);
 
   return (
     <Card mt="4">
@@ -58,7 +52,7 @@ const CourseInstructor = ({ instructor }: Props) => {
             ))}
           </List>
         </Flex>
-        <Collapse startingHeight={100} in={show}>
+        <CollapsableContainer startingHeight={100}>
           <Text pt={4}>
             {instructor.firstName} {instructor.lastName} has a BS and MS in
             Mechanical Engineering from Santa Clara University and years of
@@ -77,10 +71,7 @@ const CourseInstructor = ({ instructor }: Props) => {
             and many more. Feel free to check out the website link to find out
             more information about training offerings.
           </Text>
-        </Collapse>
-        <Button size="sm" onClick={handleToggle} mt="1rem">
-          Show {show ? "Less" : "More"}
-        </Button>
+        </CollapsableContainer>
       </CardBody>
     </Card>
   );

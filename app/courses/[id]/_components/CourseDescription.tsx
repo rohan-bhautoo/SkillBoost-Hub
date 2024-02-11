@@ -1,14 +1,6 @@
-"use client";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Collapse,
-  Heading,
-} from "@chakra-ui/react";
+import CollapsableContainer from "@/app/components/CollapsableContainer";
+import { Card, CardBody, CardHeader, Heading } from "@chakra-ui/react";
 import { CourseDetails } from "@prisma/client";
-import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 interface Props {
@@ -18,17 +10,13 @@ interface Props {
 const CourseDescription = ({ courseDetails }: Props) => {
   if (!courseDetails) return null;
 
-  const [show, setShow] = useState(false);
-
-  const handleToggle = () => setShow(!show);
-
   return (
     <Card mt="4">
       <CardHeader pb={0}>
         <Heading size="md">Description</Heading>
       </CardHeader>
       <CardBody className="prose max-w-full text-current" pt={0}>
-        <Collapse startingHeight={200} in={show}>
+        <CollapsableContainer startingHeight={200}>
           <ReactMarkdown
             components={{
               strong: ({ node, ...props }) => (
@@ -41,10 +29,7 @@ const CourseDescription = ({ courseDetails }: Props) => {
           >
             {courseDetails.description}
           </ReactMarkdown>
-        </Collapse>
-        <Button size="sm" onClick={handleToggle} mt="1rem">
-          Show {show ? "Less" : "More"}
-        </Button>
+        </CollapsableContainer>
       </CardBody>
     </Card>
   );
