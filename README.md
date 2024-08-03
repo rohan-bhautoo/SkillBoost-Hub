@@ -1,1 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SkillBoost-Hub
+SkillBoost Hub is a cutting-edge Learning Management Platform developed with a tech stack that combines Next.js, TypeScript, NextAuth for secure user authentication, Chakra UI for a seamless and visually appealing user interface, and Tailwind CSS for responsive design. Leveraging Prisma ORM, SkillBoost Hub is tightly integrated with a MySQL database, ensuring efficient data management and retrieval. This platform serves as a dynamic hub for online learning, enabling users to enhance their skills through a variety of courses. SkillBoost Hub stands out as a robust and user-friendly solution, merging the power of these technologies to provide an immersive and personalized learning experience.
+
+![SkillBoost-Hub](https://github.com/user-attachments/assets/90fb0ea7-c374-41ae-b584-d53c6872769f)
